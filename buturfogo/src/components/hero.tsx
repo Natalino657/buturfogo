@@ -26,18 +26,18 @@ export function Hero() {
         className="absolute inset-0 hidden md:block"
         style={{
           backgroundImage: `
-           linear-gradient(
-           90deg,
-           rgba(23,23,23,0.88) 0%,
-           rgba(23,23,23,0.58) 55%,
-           rgba(23,23,23,0.20) 100%
-        ),
-        linear-gradient(
-         0deg,
-         rgba(23,23,23,0.90) 0%,
-         transparent 65%
-        )
-        `,
+      linear-gradient(
+        90deg,
+        rgba(23,23,23,0.88) 0%,
+        rgba(23,23,23,0.58) 55%,
+        rgba(23,23,23,0.20) 100%
+      ),
+      linear-gradient(
+        0deg,
+        rgba(23,23,23,0.90) 0%,
+        transparent 65%
+      )
+    `,
         }}
       />
 
