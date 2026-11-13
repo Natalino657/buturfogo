@@ -54,27 +54,23 @@ export function Navbar() {
             PT / EN
           </Link>
 
-          <Button
-            asChild
-            className="bg-lava font-semibold text-white hover:bg-lava/90"
+          <a
+            href="https://wa.me/2385993884"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex h-9 items-center justify-center rounded-md bg-lava px-4 text-sm font-semibold text-white transition-colors hover:bg-lava/90"
           >
-            <a href="https://wa.me/2385993884" target="_blank" rel="noreferrer">
-              Reservar agora
-            </a>
-          </Button>
+            Reservar agora
+          </a>
         </div>
 
         <div className="md:hidden">
           <Sheet>
-            <SheetTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-cream hover:bg-white/10 hover:text-white"
-                aria-label="Abrir menu"
-              >
-                <Menu className="size-6" />
-              </Button>
+            <SheetTrigger
+              className="inline-flex size-10 items-center justify-center rounded-md text-cream transition-colors hover:bg-white/10 hover:text-white"
+              aria-label="Abrir menu"
+            >
+              <Menu className="size-6" />
             </SheetTrigger>
 
             <SheetContent
@@ -105,15 +101,14 @@ export function Navbar() {
                   Português / English
                 </Link>
 
-                <Button asChild className="bg-lava text-white hover:bg-lava/90">
-                  <a
-                    href="https://wa.me/2385993884"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Reservar agora
-                  </a>
-                </Button>
+                <a
+                  href="https://wa.me/2385993884"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex h-9 items-center justify-center rounded-md bg-lava px-4 text-sm font-semibold text-white transition-colors hover:bg-lava/90"
+                >
+                  Reservar agora
+                </a>
               </div>
             </SheetContent>
           </Sheet>

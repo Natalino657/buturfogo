@@ -49,29 +49,22 @@ export function Hero() {
           </p>
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-            <Button
-              asChild
-              size="lg"
-              className="h-14 bg-lava px-8 text-base font-semibold text-white hover:bg-lava/90"
+            <a
+              href="https://wa.me/2385993884"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-14 items-center justify-center rounded-md bg-lava px-8 text-base font-semibold text-white transition-colors hover:bg-lava/90"
             >
-              <a
-                href="https://wa.me/2385993884"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Reserve a sua viagem
-                <ArrowUpRight className="ml-2 size-5" />
-              </a>
-            </Button>
+              Reserve a sua viagem
+              <ArrowUpRight className="ml-2 size-5" />
+            </a>
 
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="h-14 border-white/30 bg-white/5 px-8 text-base text-cream hover:bg-white/10 hover:text-white"
+            <Link
+              href="#transfers"
+              className="inline-flex h-14 items-center justify-center rounded-md border border-white/30 bg-white/5 px-8 text-base text-cream transition-colors hover:bg-white/10 hover:text-white"
             >
-              <Link href="#transfers">Explorar serviços</Link>
-            </Button>
+              Explorar serviços
+            </Link>
           </div>
         </div>
       </div>
