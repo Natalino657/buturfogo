@@ -63,12 +63,14 @@ export function Navbar({ lang, dict, whatsappUrl }: NavbarProps) {
           <Logo />
         </Link>
 
-        <div className="hidden items-center gap-8 lg:flex">
+        {/* Each link reserves the same min width (wider than the longest PT/EN label),
+            so the group keeps the same size and position in both languages. */}
+        <div className="hidden items-center gap-4 lg:flex">
           {navigation.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-cream/80 transition-colors hover:text-lava"
+              className="min-w-20 whitespace-nowrap text-center text-sm font-medium text-cream/80 transition-colors hover:text-lava"
             >
               {dict.navigation[item.key]}
             </Link>
@@ -76,17 +78,14 @@ export function Navbar({ lang, dict, whatsappUrl }: NavbarProps) {
         </div>
 
         <div className="hidden items-center gap-4 lg:flex">
-          <LanguageSwitcher
-            lang={lang}
-            labels={dict.languageSwitcher}
-            className="text-xs font-semibold text-cream/70"
-          />
+          <LanguageSwitcher lang={lang} labels={dict.languageSwitcher} />
 
+          {/* min-w fits the longer label ("Reservar agora"), so the button keeps its width in EN. */}
           <a
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-9 items-center justify-center rounded-md bg-lava px-4 text-sm font-semibold text-white transition-colors hover:bg-lava/90"
+            className="inline-flex h-9 min-w-36 items-center justify-center whitespace-nowrap rounded-md bg-lava px-4 text-sm font-semibold text-white transition-colors hover:bg-lava/90"
           >
             {dict.bookingCta}
           </a>
@@ -141,7 +140,7 @@ export function Navbar({ lang, dict, whatsappUrl }: NavbarProps) {
                   lang={lang}
                   labels={dict.languageSwitcher}
                   onNavigate={() => setOpen(false)}
-                  className="mt-6 text-xs font-semibold tracking-[0.22em] text-cream/55"
+                  className="mt-6 self-start"
                 />
               </nav>
 
