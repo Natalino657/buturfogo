@@ -64,12 +64,14 @@ export function Navbar({ lang, dict, whatsappUrl }: NavbarProps) {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-volcanic/80 backdrop-blur-md">
       <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-3 px-5 sm:px-6 lg:px-10">
-        <Link href="#inicio" aria-label={siteConfig.name} className="min-w-0">
+        <Link href="#inicio" aria-label={siteConfig.name}>
           {/* Compact size below sm (same as in the mobile menu) to leave room for the
-              language pill + menu button; the mark is dropped on very narrow phones. */}
+              language pill + menu button. Below 390px the mark is dropped so the full
+              logo text still fits on one line. */}
           <Logo
-            markClassName="h-8 max-[359px]:hidden sm:h-10"
+            markClassName="h-8 max-[389px]:hidden sm:h-10"
             wordmarkClassName="text-xl sm:text-2xl"
+            serviceLabelClassName="whitespace-nowrap"
           />
         </Link>
 
@@ -110,7 +112,7 @@ export function Navbar({ lang, dict, whatsappUrl }: NavbarProps) {
 
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger
-              className="inline-flex size-10 items-center justify-center rounded-md text-cream transition-colors hover:bg-white/10 hover:text-white"
+              className="relative inline-flex size-10 items-center justify-center rounded-md text-cream transition-colors after:absolute after:-inset-0.5 hover:bg-white/10 hover:text-white"
               aria-label={dict.navigation.openMenu}
             >
               <Menu className="size-6" />
@@ -119,7 +121,7 @@ export function Navbar({ lang, dict, whatsappUrl }: NavbarProps) {
             <SheetContent
               side="right"
               closeLabel={dict.navigation.closeMenu}
-              className="w-[min(100%,20rem)] gap-0 border-white/10 bg-volcanic p-0 text-cream"
+              className="gap-0 border-white/10 bg-volcanic p-0 text-cream"
             >
               <SheetHeader className="border-b border-white/10 px-6 py-5 pr-14">
                 <SheetTitle className="text-left text-cream">

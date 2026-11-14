@@ -32,11 +32,59 @@ export const en: Dictionary = {
   },
   transfers: {
     title: "Transfers",
-    description: "Coming soon: discover our transport services.",
+    description:
+      "Transport from the airport and the port to your hotel in São Filipe, and from São Filipe to Chã das Caldeiras, Mosteiros and Salinas.",
+    items: {
+      "airport-hotel": "Airport Transfer",
+      "port-hotel": "Port Transfer",
+      "saofilipe-cha": "Chã das Caldeiras Transfer",
+      "saofilipe-mosteiros": "Mosteiros Transfer",
+      "saofilipe-salinas": "Salinas Transfer",
+    },
   },
   tours: {
     title: "Tours and experiences",
     description: "Explore the most special destinations on Fogo Island.",
+    groups: {
+      chaDasCaldeiras: "Chã das Caldeiras",
+      aroundTheIsland: "Around the island",
+    },
+    bookingLabel: "Tour {route}",
+  },
+  experiences: {
+    title: "Experiences",
+    items: {
+      salinasVisit: { title: "Salinas visit" },
+    },
+    optionLabel: "{experience} ({duration})",
+  },
+  places: {
+    airport: "Airport",
+    port: "Port",
+    hotelSaoFilipe: "Hotel (São Filipe)",
+    saoFilipe: "São Filipe",
+    chaDasCaldeiras: "Chã das Caldeiras",
+    mosteiros: "Mosteiros",
+    salinas: "Salinas",
+    santaCatarina: "Santa Catarina",
+    saoLourenco: "São Lourenço",
+    monteVelha: "Monte Velha",
+    sabuceiroRecupera: "Sabuceiro e Recupera nas Hortas",
+  },
+  routeVariants: {
+    picoGrande: "Pico Grande",
+    picoPequeno: "Pico Pequeno",
+  },
+  durations: {
+    min90: "1 h 30 min",
+    min120: "2 hours",
+  },
+  pricing: {
+    perVehicle: "Prices per vehicle.",
+    perVehicleShort: "per vehicle",
+  },
+  serviceCard: {
+    route: "Route",
   },
   about: {
     title: "About BUTURFOGO",
@@ -45,5 +93,9 @@ export const en: Dictionary = {
     cta: "Book now",
     whatsappMessage:
       "Hello BUTURFOGO! I would like more information about your services.",
+    serviceMessage:
+      "Hello BUTURFOGO! I would like to book: {service} — {price} (price per vehicle).",
+    serviceCta: "Book",
+    serviceCtaLabel: "Book {service} via WhatsApp",
   },
 };

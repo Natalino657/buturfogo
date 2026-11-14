@@ -18,7 +18,23 @@ type LanguageSwitcherProps = {
   onNavigate?: () => void;
 };
 
-/** The "PT / EN" switcher. Keeps the current section (#hash) when changing language. */
+/**
+ * Returns "#id" of the section the user is reading (the one crossing a line at
+ * 40% of the viewport height), or "" when that is the first section (the Hero).
+ * Based on the scroll position, not on location.hash, which goes stale as soon
+ * as the user scrolls after clicking a menu link.
+ */
+function getVisibleSectionHash(): string {
+  const readingLine = window.innerHeight * 0.4;
+  const sections = [...document.querySelectorAll<HTMLElement>("main > section[id]")];
+  const current = sections
+    .filter((section) => section.getBoundingClientRect().top <= readingLine)
+    .pop();
+
+  return current && current !== sections[0] ? `#${current.id}` : "";
+}
+
+/** The "PT / EN" switcher. Keeps the section currently in view when changing language. */
 export function LanguageSwitcher({
   lang,
   labels,
@@ -33,7 +49,7 @@ export function LanguageSwitcher({
     if (locale === lang) return;
 
     onNavigate?.();
-    router.push(`/${locale}${window.location.hash}`);
+    router.push(`/${locale}${getVisibleSectionHash()}`);
   }
 
   return (
@@ -61,8 +77,11 @@ export function LanguageSwitcher({
             aria-current={isActive ? "true" : undefined}
             onClick={(event) => handleClick(event, locale)}
             className={cn(
-              "inline-flex h-full items-center justify-center rounded-full font-semibold uppercase tracking-[0.12em] transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-lava/70",
-              size === "sm" ? "w-9 text-[10px]" : "w-11 text-[11px]",
+              // The ::after pseudo-element extends the touch area to 44px tall without changing the look.
+              "relative inline-flex h-full items-center justify-center rounded-full font-semibold uppercase tracking-[0.12em] transition-colors duration-200 outline-none after:absolute after:inset-x-0 focus-visible:ring-2 focus-visible:ring-lava/70",
+              size === "sm"
+                ? "w-9 text-[10px] after:-inset-y-[9px]"
+                : "w-11 text-[11px] after:-inset-y-2",
               isActive
                 ? "bg-cream text-volcanic"
                 : "text-cream/60 hover:bg-white/10 hover:text-cream"

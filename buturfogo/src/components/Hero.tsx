@@ -50,7 +50,7 @@ export function Hero({ dict, whatsappUrl }: HeroProps) {
       />
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-28 sm:px-6 md:py-24 lg:px-10">
-        <div className="max-w-3xl">
+        <div className="max-w-4xl">
           <div className="mb-6 flex items-center gap-3 md:mb-8">
             <span className="h-px w-8 bg-lava sm:w-10" />
             <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-sand sm:text-xs sm:tracking-[0.3em]">
