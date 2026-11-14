@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type MouseEvent } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import Link from "next/link";
 import { Menu } from "lucide-react";
 
@@ -45,22 +45,32 @@ export function Navbar({ lang, dict, whatsappUrl }: NavbarProps) {
     setOpen(false);
   }
 
-  function handleOpenChangeComplete(isOpen: boolean) {
+  // Scroll to the picked section while the panel slides out, instead of after.
+  // Base UI releases its scroll lock (restoring the old position) in a 0ms
+  // timeout scheduled when the Sheet closes; our timeout is queued after it.
+  useEffect(() => {
     const href = pendingSection.current;
-    if (isOpen || !href) return;
+    if (open || !href) return;
 
     pendingSection.current = null;
-    requestAnimationFrame(() => {
+    const timeout = window.setTimeout(() => {
       document.querySelector(href)?.scrollIntoView();
       window.history.pushState(null, "", href);
-    });
-  }
+    }, 0);
+
+    return () => window.clearTimeout(timeout);
+  }, [open]);
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-volcanic/80 backdrop-blur-md">
-      <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-10">
-        <Link href="#inicio" aria-label={siteConfig.name}>
-          <Logo />
+      <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-3 px-5 sm:px-6 lg:px-10">
+        <Link href="#inicio" aria-label={siteConfig.name} className="min-w-0">
+          {/* Compact size below sm (same as in the mobile menu) to leave room for the
+              language pill + menu button; the mark is dropped on very narrow phones. */}
+          <Logo
+            markClassName="h-8 max-[359px]:hidden sm:h-10"
+            wordmarkClassName="text-xl sm:text-2xl"
+          />
         </Link>
 
         {/* Each link reserves the same min width (wider than the longest PT/EN label),
@@ -91,12 +101,14 @@ export function Navbar({ lang, dict, whatsappUrl }: NavbarProps) {
           </a>
         </div>
 
-        <div className="lg:hidden">
-          <Sheet
-            open={open}
-            onOpenChange={setOpen}
-            onOpenChangeComplete={handleOpenChangeComplete}
-          >
+        <div className="flex shrink-0 items-center gap-2 lg:hidden">
+          <LanguageSwitcher
+            lang={lang}
+            labels={dict.languageSwitcher}
+            size="sm"
+          />
+
+          <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger
               className="inline-flex size-10 items-center justify-center rounded-md text-cream transition-colors hover:bg-white/10 hover:text-white"
               aria-label={dict.navigation.openMenu}
@@ -135,13 +147,6 @@ export function Navbar({ lang, dict, whatsappUrl }: NavbarProps) {
                     </li>
                   ))}
                 </ul>
-
-                <LanguageSwitcher
-                  lang={lang}
-                  labels={dict.languageSwitcher}
-                  onNavigate={() => setOpen(false)}
-                  className="mt-6 self-start"
-                />
               </nav>
 
               <SheetFooter className="border-t border-white/10 px-6 py-5">

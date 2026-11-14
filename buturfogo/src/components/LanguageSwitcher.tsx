@@ -11,6 +11,8 @@ import type { Dictionary } from "@/i18n/dictionaries";
 type LanguageSwitcherProps = {
   lang: Locale;
   labels: Dictionary["languageSwitcher"];
+  /** "sm" is the compact pill used in the mobile header. */
+  size?: "default" | "sm";
   className?: string;
   /** Called before navigating to the other language (e.g. to close the mobile menu). */
   onNavigate?: () => void;
@@ -20,6 +22,7 @@ type LanguageSwitcherProps = {
 export function LanguageSwitcher({
   lang,
   labels,
+  size = "default",
   className,
   onNavigate,
 }: LanguageSwitcherProps) {
@@ -34,13 +37,14 @@ export function LanguageSwitcher({
   }
 
   return (
-    // Fixed-size pill (h-9, two w-11 segments): identical in every language,
-    // and the same height as the h-9 booking button next to it.
+    // Fixed-size pill: identical in every language. The default size matches the
+    // h-9 booking button on desktop; "sm" fits the mobile header.
     <div
       role="group"
       aria-label={labels.label}
       className={cn(
-        "inline-flex h-9 shrink-0 items-center rounded-full border border-white/15 bg-white/5 p-[3px]",
+        "inline-flex shrink-0 items-center rounded-full border border-white/15 bg-white/5",
+        size === "sm" ? "h-8 p-0.5" : "h-9 p-0.75",
         className
       )}
     >
@@ -57,7 +61,8 @@ export function LanguageSwitcher({
             aria-current={isActive ? "true" : undefined}
             onClick={(event) => handleClick(event, locale)}
             className={cn(
-              "inline-flex h-full w-11 items-center justify-center rounded-full text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-lava/70",
+              "inline-flex h-full items-center justify-center rounded-full font-semibold uppercase tracking-[0.12em] transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-lava/70",
+              size === "sm" ? "w-9 text-[10px]" : "w-11 text-[11px]",
               isActive
                 ? "bg-cream text-volcanic"
                 : "text-cream/60 hover:bg-white/10 hover:text-cream"
