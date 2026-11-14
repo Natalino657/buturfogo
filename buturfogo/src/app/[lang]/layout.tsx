@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
-import { Montserrat, Inter, Geist } from "next/font/google";
+import { Montserrat, Inter } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils";
-
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -27,10 +25,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="Pt" className={cn("font-sans", geist.variable)}>
-      <body className={`${montserrat.variable} ${inter.variable} antialiased`}>
-        {children}
-      </body>
+    <html lang="pt" className={`${montserrat.variable} ${inter.variable}`}>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }

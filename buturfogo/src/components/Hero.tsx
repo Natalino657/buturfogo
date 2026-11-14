@@ -2,14 +2,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 
+import { siteConfig } from "@/config/site";
+import { getWhatsAppUrl } from "@/lib/whatsapp";
+
 export function Hero() {
+  const [sloganLead, sloganHighlight] = siteConfig.slogan.pt;
+
   return (
     <section
       id="inicio"
       className="relative flex min-h-[100svh] items-end overflow-hidden bg-volcanic md:items-center"
     >
       <Image
-        src="/images/hero/fogo-hero.png"
+        src="/images/hero/fogo-hero.webp"
         alt="Pico do Fogo ao pôr do sol, Ilha do Fogo"
         fill
         priority
@@ -51,9 +56,9 @@ export function Hero() {
           </div>
 
           <h1 className="font-heading text-[2.35rem] font-extrabold leading-[1.12] tracking-tight text-cream sm:text-6xl lg:text-7xl">
-            Descubra a ilha.
+            {sloganLead}
             <br />
-            <span className="text-lava">Viva a experiência.</span>
+            <span className="text-lava">{sloganHighlight}</span>
           </h1>
 
           <p className="mt-5 max-w-xl text-[15px] leading-7 text-cream/80 sm:mt-8 sm:text-lg sm:leading-8 sm:text-cream/75">
@@ -63,7 +68,7 @@ export function Hero() {
 
           <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:gap-4">
             <a
-              href="https://wa.me/2385993884"
+              href={getWhatsAppUrl({ locale: "pt" })}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex h-12 items-center justify-center rounded-md bg-lava px-8 text-base font-semibold text-white transition-colors hover:bg-lava/90 sm:h-14"
