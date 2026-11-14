@@ -1,35 +1,27 @@
-export type Locale = "pt" | "en";
-
-type LocalizedText = Record<Locale, string>;
+export type SectionKey = "home" | "transfers" | "tours" | "about";
 
 export type NavigationItem = {
-  label: string;
-  href: string;
+  key: SectionKey;
+  href: `#${string}`;
 };
 
 export const siteConfig = {
   name: "BUTURFOGO",
+  /** Public site URL, used for canonical/hreflang/Open Graph links. */
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
 
   wordmark: { primary: "BUTUR", accent: "FOGO" },
   serviceLabel: "TRANSFERS & TOURS",
 
-  slogan: {
-    pt: ["Descubra a ilha.", "Viva a experiência."],
-    en: ["Discover the island.", "Experience its magic."],
-  } satisfies Record<Locale, readonly [string, string]>,
-
   whatsapp: {
     phone: "2385993884",
-    defaultMessage: {
-      pt: "Olá BUTURFOGO! Gostaria de mais informações sobre os vossos serviços.",
-      en: "Hello BUTURFOGO! I would like more information about your services.",
-    } satisfies LocalizedText,
   },
 
+  /** Section anchors are shared by every language, so /pt#transfers maps to /en#transfers. */
   navigation: [
-    { label: "Início", href: "#inicio" },
-    { label: "Transfer", href: "#transfers" },
-    { label: "Passeios", href: "#passeios" },
-    { label: "Sobre nós", href: "#sobre" },
+    { key: "home", href: "#inicio" },
+    { key: "transfers", href: "#transfers" },
+    { key: "tours", href: "#passeios" },
+    { key: "about", href: "#sobre" },
   ] satisfies readonly NavigationItem[],
 } as const;
