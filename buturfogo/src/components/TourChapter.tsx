@@ -2,6 +2,7 @@ import { BookingSelector } from "@/components/BookingSelector";
 import { PhotoGrid, type GridPhoto } from "@/components/PhotoGrid";
 import type { Chapter } from "@/data/chapters";
 import { destinations } from "@/data/destinations";
+import { photos } from "@/data/photos";
 import { experiences, tours } from "@/data/services";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
@@ -39,29 +40,28 @@ function getChapterText(chapter: Chapter, dict: Dictionary) {
 
 /**
  * Photos of the chapter's destinations (see destinations.ts). With several
- * destinations ("Pela ilha"), each photo is captioned with its place name and
- * that place's short line instead of the photo description.
+ * destinations ("Pela ilha"), each photo is captioned with its place name, and
+ * the first photo of each place with that place's short line.
  */
 function getChapterPhotos(chapter: Chapter, dict: Dictionary): GridPhoto[] {
   const several = chapter.destinations.length > 1;
+  const cards: Partial<Record<string, string>> = dict.chapters.cards;
 
   return chapter.destinations.flatMap((destinationId) => {
     const destination = destinations.find((d) => d.id === destinationId);
     if (!destination) return [];
-    return destination.photos.map((photo) => ({
-      id: photo.id,
-      src: photo.src,
-      alt: dict.photos.alt[photo.id],
-      captionTitle: several ? dict.destinations[destinationId].name : undefined,
-      caption: several
-        ? dict.chapters.cards[destinationId as keyof typeof dict.chapters.cards]
-        : dict.photos.alt[photo.id],
-      credit: interpolate(dict.photos.credit, {
-        author: photo.author,
-        license: photo.license,
-      }),
-      sourceUrl: photo.sourceUrl,
-    }));
+
+    return destination.photos.map((photoId, index): GridPhoto => {
+      const photo = photos[photoId];
+      const card = index === 0 ? cards[destinationId] : undefined;
+      return {
+        id: photoId,
+        src: photo.src,
+        alt: dict.photos.alt[photoId],
+        captionTitle: several ? dict.destinations[destinationId].name : undefined,
+        caption: several && card ? card : dict.photos.alt[photoId],
+      };
+    });
   });
 }
 
@@ -159,6 +159,7 @@ export function TourChapter({ locale, chapter, number, dict }: TourChapterProps)
           hint: dict.booking.selector.hint,
           perVehicle: dict.pricing.perVehicleShort,
           route: dict.booking.selector.route,
+            opensWhatsapp: dict.booking.opensWhatsapp,
         }}
       />
     </article>

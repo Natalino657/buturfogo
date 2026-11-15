@@ -1,52 +1,44 @@
 import Link from "next/link";
-import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 
 import { HeroSlides, type ResolvedHeroSlide } from "@/components/HeroSlides";
-import { destinations, type DestinationPhoto } from "@/data/destinations";
-import { HERO_SLIDE_SECONDS, heroSlides } from "@/data/hero";
+import { WhatsAppIcon } from "@/components/WhatsAppIcon";
+import { FOGO_HERO_SRC, HERO_SLIDE_SECONDS, heroSlides } from "@/data/hero";
+import { photos } from "@/data/photos";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { interpolate } from "@/lib/format";
 
 type HeroProps = {
-  dict: Pick<Dictionary, "hero" | "photos">;
+  dict: Pick<Dictionary, "hero" | "photos" | "booking">;
   /** Built on the server with the locale's pre-filled message. */
   whatsappUrl: string;
 };
 
-/** Resolves the hero slides: destination photos get their alt text and credit. */
+/** Resolves the hero slides: Commons photos get their alt text and credit. */
 function getSlides(dict: HeroProps["dict"]): ResolvedHeroSlide[] {
-  const photos = destinations.flatMap(
-    (destination): readonly DestinationPhoto[] => destination.photos
-  );
-
-  return heroSlides.flatMap((slide): ResolvedHeroSlide[] => {
+  return heroSlides.map((slide): ResolvedHeroSlide => {
     if (slide.id === "fogo-hero") {
-      return [
-        {
-          id: slide.id,
-          src: slide.src,
-          alt: dict.hero.imageAlt,
-          position: slide.position,
-        },
-      ];
-    }
-    const photo = photos.find((p) => p.id === slide.id);
-    if (!photo) return [];
-    return [
-      {
-        id: photo.id,
-        src: photo.src,
-        alt: dict.photos.alt[photo.id],
+      return {
+        id: slide.id,
+        src: FOGO_HERO_SRC,
+        alt: dict.hero.imageAlt,
         position: slide.position,
-        credit: {
-          text: interpolate(dict.photos.credit, {
-            author: photo.author,
-            license: photo.license,
-          }),
-          href: photo.sourceUrl,
-        },
+      };
+    }
+    const photo = photos[slide.id];
+    return {
+      id: slide.id,
+      src: photo.src,
+      alt: dict.photos.alt[slide.id],
+      position: slide.position,
+      credit: {
+        text: interpolate(dict.photos.credit, {
+          author: photo.author,
+          license: photo.license,
+        }),
+        href: photo.sourceUrl,
       },
-    ];
+    };
   });
 }
 
@@ -114,10 +106,11 @@ export function Hero({ dict: fullDict, whatsappUrl }: HeroProps) {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-12 items-center justify-center rounded-md bg-lava px-8 text-base font-semibold text-white transition-colors hover:bg-lava/90 sm:h-14"
+              className="inline-flex h-12 items-center justify-center gap-2.5 rounded-md bg-lava px-8 text-base font-semibold text-white transition-colors hover:bg-lava/90 sm:h-14"
             >
+              <WhatsAppIcon className="size-5" />
               {dict.primaryCta}
-              <ArrowUpRight className="ml-2 size-5" />
+              <span className="sr-only"> {fullDict.booking.opensWhatsapp}</span>
             </a>
 
             <Link

@@ -4,30 +4,27 @@
  * Only real photos of Fogo, at least 2400px wide so they hold up full screen.
  */
 
-import type { PhotoId } from "@/data/destinations";
+import type { PhotoId } from "@/data/photos";
 
-export type HeroSlide =
-  | {
-      id: "fogo-hero";
-      src: string;
-      /** object-position per breakpoint, so the volcano stays in frame. */
-      position: string;
-    }
-  | {
-      /** A destination photo: alt text and CC BY-SA credit come from destinations.ts. */
-      id: PhotoId;
-      position: string;
-    };
+export type HeroSlide = {
+  /** "fogo-hero" is the original Hero photo; the others come from photos.ts. */
+  id: "fogo-hero" | PhotoId;
+  /** object-position classes, so the subject stays in frame on every screen. */
+  position: string;
+};
+
+/** The original Hero photo (not from Wikimedia Commons, no credit line). */
+export const FOGO_HERO_SRC = "/images/hero/fogo-hero.webp";
 
 export const heroSlides = [
   {
     id: "fogo-hero",
-    src: "/images/hero/fogo-hero.webp",
     position: "object-[72%_42%] sm:object-[68%_40%] md:object-center",
   },
-  { id: "cha-das-caldeiras-bordeira", position: "object-[60%_50%]" },
-  { id: "cha-das-caldeiras-lava-2014", position: "object-center" },
-  { id: "salinas-praia", position: "object-[40%_60%]" },
+  { id: "cha-pico-ceu-azul", position: "object-[60%_60%]" },
+  { id: "cha-caldeira-aerea", position: "object-[55%_55%]" },
+  { id: "santa-catarina-encostas-sul", position: "object-[55%_50%]" },
+  { id: "mosteiros-costa", position: "object-[60%_50%]" },
 ] as const satisfies readonly HeroSlide[];
 
 /** Seconds each photo stays on screen when rotating automatically. */

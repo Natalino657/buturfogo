@@ -157,8 +157,8 @@ export const en: Dictionary = {
     min120: "2 hours",
   },
   pricing: {
-    perVehicle: "Prices per vehicle.",
-    perVehicleShort: "per vehicle",
+    perVehicle: "Prices per 4-seat vehicle.",
+    perVehicleShort: "per 4-seat vehicle",
   },
   booking: {
     cta: "Book now",
@@ -166,6 +166,7 @@ export const en: Dictionary = {
       "Hello BUTURFOGO! I would like more information about your services.",
     serviceMessage:
       "Hello BUTURFOGO! I would like to book: {service} — {price} (price per vehicle).",
+    opensWhatsapp: "(opens WhatsApp)",
     selector: {
       chooseTour: "Choose a tour",
       chooseDuration: "Choose a duration",
@@ -182,22 +183,25 @@ export const en: Dictionary = {
 
   photos: {
     alt: {
-      "cha-das-caldeiras-bordeira":
-        "The Bordeira wall and the villages of Chã das Caldeiras",
-      "cha-das-caldeiras-lava-2014":
-        "2014 lava field inside the crater, Chã das Caldeiras",
-      "cha-das-caldeiras-vinha":
-        "Vineyard on the volcano's slopes, Chã das Caldeiras",
+      "cha-pico-ceu-azul": "Pico do Fogo under a blue sky",
+      "cha-pico-cone-lava":
+        "Pico do Fogo and a secondary cone above the lava fields",
+      "cha-vinhas-socalcos": "Terraced vineyards at the foot of Pico do Fogo",
+      "cha-vinha-lava": "Vines among the lava, with Pico do Fogo behind",
+      "cha-caldeira-aerea": "Aerial view of the caldera and Pico do Fogo",
+      "mosteiros-costa": "The Mosteiros coast seen from the slopes",
+      "mosteiros-encostas": "Green slopes and houses of Mosteiros",
+      "salinas-mar": "Blue sea and lava rocks at Ponta da Salina",
+      "salinas-praia-calhau":
+        "Pebble beach and lava cliffs at Ponta da Salina",
+      "santa-catarina-encostas-sul":
+        "The volcano's southern slopes, with Achada Furna and lava flows",
       "monte-velha-floresta": "Monte Velha forest with mist on the slope",
-      "mosteiros-vila": "View of Mosteiros and the coast",
-      "salinas-porto": "Fishing boats at Ponta da Salina",
-      "salinas-praia": "Small harbour and beach at Ponta da Salina",
-      "santa-catarina-estrada": "Road towards the caldera, Santa Catarina",
     },
     credit: "Photo: {author} · {license}",
     credits: {
       title: "Photo credits",
-      note: "Photos from Wikimedia Commons, resized and converted to WebP. Creative Commons licences are shown on each image.",
+      note: "Photos from Wikimedia Commons, resized and converted to WebP. Authors and Creative Commons licences:",
     },
   },
 
@@ -226,5 +230,6 @@ export const en: Dictionary = {
     text: "Have questions or planning a tour? Get in touch and we'll help you plan your experience.",
     whatsappLabel: "WhatsApp",
     whatsappCta: "Chat on WhatsApp",
+    emailLabel: "Email",
   },
 };

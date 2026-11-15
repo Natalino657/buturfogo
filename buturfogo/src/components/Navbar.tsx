@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/sheet";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Logo } from "@/components/Logo";
+import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 import { siteConfig } from "@/config/site";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
@@ -26,6 +27,8 @@ type NavbarProps = {
     navigation: Dictionary["navigation"];
     languageSwitcher: Dictionary["languageSwitcher"];
     bookingCta: string;
+    /** Screen-reader note, e.g. "(abre o WhatsApp)". */
+    opensWhatsapp: string;
   };
   /** Built on the server with the locale's pre-filled message. */
   whatsappUrl: string;
@@ -76,20 +79,21 @@ export function Navbar({ lang, dict, whatsappUrl }: NavbarProps) {
         </Link>
 
         {/* Each link reserves the same min width (wider than the longest PT/EN label),
-            so the group keeps the same size and position in both languages. */}
-        <div className="hidden items-center gap-4 lg:flex">
+            so the group keeps the same size and position in both languages. Slightly
+            tighter between lg and xl so the booking button (with its WhatsApp icon) fits. */}
+        <div className="hidden items-center gap-2 lg:flex xl:gap-4">
           {navigation.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="min-w-20 whitespace-nowrap text-center text-sm font-medium text-cream/80 transition-colors hover:text-lava"
+              className="min-w-[4.5rem] whitespace-nowrap xl:min-w-20 text-center text-sm font-medium text-cream/80 transition-colors hover:text-lava"
             >
               {dict.navigation[item.key]}
             </Link>
           ))}
         </div>
 
-        <div className="hidden items-center gap-4 lg:flex">
+        <div className="hidden items-center gap-3 lg:flex xl:gap-4">
           <LanguageSwitcher lang={lang} labels={dict.languageSwitcher} />
 
           {/* min-w fits the longer label ("Reservar agora"), so the button keeps its width in EN. */}
@@ -97,9 +101,11 @@ export function Navbar({ lang, dict, whatsappUrl }: NavbarProps) {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-9 min-w-36 items-center justify-center whitespace-nowrap rounded-md bg-lava px-4 text-sm font-semibold text-white transition-colors hover:bg-lava/90"
+            className="inline-flex h-9 min-w-36 items-center justify-center gap-2 whitespace-nowrap rounded-md bg-lava px-4 text-sm font-semibold text-white transition-colors hover:bg-lava/90"
           >
+            <WhatsAppIcon className="size-4" />
             {dict.bookingCta}
+            <span className="sr-only"> {dict.opensWhatsapp}</span>
           </a>
         </div>
 
@@ -156,9 +162,11 @@ export function Navbar({ lang, dict, whatsappUrl }: NavbarProps) {
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex h-12 w-full items-center justify-center rounded-md bg-lava px-4 text-sm font-semibold text-white transition-colors hover:bg-lava/90"
+                  className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-md bg-lava px-4 text-sm font-semibold text-white transition-colors hover:bg-lava/90"
                 >
+                  <WhatsAppIcon className="size-[18px]" />
                   {dict.bookingCta}
+                  <span className="sr-only"> {dict.opensWhatsapp}</span>
                 </a>
               </SheetFooter>
             </SheetContent>
