@@ -69,17 +69,17 @@ export function ServiceCard({
   return (
     <article
       className={cn(
-        "group relative flex h-full flex-col overflow-hidden rounded-2xl border transition duration-300 ease-out hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0",
+        "group relative flex h-full flex-col overflow-hidden rounded-2xl border transition duration-300 ease-out focus-within:border-white/20 hover:-translate-y-0.5 motion-reduce:transition-none motion-reduce:hover:translate-y-0",
         dark
-          ? "border-white/10 bg-linear-to-b from-white/7 to-white/2 hover:border-lava/40 hover:shadow-[0_24px_48px_-24px_rgba(247,90,27,0.35)]"
-          : "border-volcanic/10 bg-white shadow-sm hover:border-lava/40 hover:shadow-[0_24px_48px_-24px_rgba(23,23,23,0.25)]",
+          ? "border-white/[0.07] bg-white/[0.025] hover:border-white/15 hover:bg-white/[0.04]"
+          : "border-volcanic/10 bg-white shadow-sm hover:border-volcanic/20 hover:shadow-[0_24px_48px_-24px_rgba(23,23,23,0.25)]",
         className
       )}
     >
-      {/* Lava hairline that lights up on hover. */}
+      {/* Lava hairline that lights up on hover: the card's only accent besides the button. */}
       <span
         aria-hidden="true"
-        className="absolute inset-x-0 top-0 z-10 h-px bg-linear-to-r from-transparent via-lava to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        className="absolute inset-x-6 top-0 z-10 h-px bg-linear-to-r from-transparent via-lava/70 to-transparent opacity-0 transition-opacity duration-300 group-focus-within:opacity-100 group-hover:opacity-100"
       />
 
       {image && (
@@ -106,9 +106,14 @@ export function ServiceCard({
           {Icon && !image && (
             <span
               aria-hidden="true"
-              className="flex size-11 shrink-0 items-center justify-center rounded-xl border border-lava/25 bg-lava/10 text-lava"
+              className={cn(
+                "flex size-10 shrink-0 items-center justify-center rounded-full border",
+                dark
+                  ? "border-white/10 text-cream/55"
+                  : "border-volcanic/10 text-volcanic/55"
+              )}
             >
-              <Icon className="size-5" />
+              <Icon className="size-[18px]" strokeWidth={1.75} />
             </span>
           )}
           <div className="min-w-0">
@@ -158,13 +163,13 @@ export function ServiceCard({
                 <span
                   className={cn(
                     "mt-2 text-[11px] font-semibold uppercase tracking-[0.18em]",
-                    dark ? "text-sand" : "text-volcanic/60"
+                    dark ? "text-cream/45" : "text-volcanic/60"
                   )}
                 >
                   {labels.perVehicle}
                 </span>
               </p>
-              <BookingLink {...bookingProps(single)} size="sm">
+              <BookingLink {...bookingProps(single)} variant="subtle" size="sm">
                 {labels.cta}
               </BookingLink>
             </div>
@@ -201,7 +206,7 @@ export function ServiceCard({
                         {formatPrice(option.price, locale)}
                       </span>
                     </p>
-                    <BookingLink {...bookingProps(option)} size="sm">
+                    <BookingLink {...bookingProps(option)} variant="subtle" size="sm">
                       {labels.cta}
                     </BookingLink>
                   </li>
@@ -210,7 +215,7 @@ export function ServiceCard({
               <p
                 className={cn(
                   "mt-3 text-[11px] font-semibold uppercase tracking-[0.18em]",
-                  dark ? "text-sand" : "text-volcanic/60"
+                  dark ? "text-cream/45" : "text-volcanic/60"
                 )}
               >
                 {labels.perVehicle}

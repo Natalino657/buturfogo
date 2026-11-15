@@ -13,7 +13,8 @@ type BookingLinkProps = {
   children: ReactNode;
   /** Accessible name when the visible text alone is ambiguous (e.g. several "Book" buttons). */
   ariaLabel?: string;
-  variant?: "primary" | "outline";
+  /** "subtle": lava outline that fills on hover, for buttons repeated inside cards. */
+  variant?: "primary" | "outline" | "subtle";
   size?: "md" | "sm";
   className?: string;
 };
@@ -39,15 +40,24 @@ export function BookingLink({
       rel="noopener noreferrer"
       aria-label={ariaLabel}
       className={cn(
-        "inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-md font-semibold transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-lava/70 focus-visible:ring-offset-2 focus-visible:ring-offset-volcanic",
-        variant === "primary"
-          ? "bg-lava text-white hover:bg-lava/90"
-          : "border border-white/30 bg-white/5 text-cream hover:bg-white/10 hover:text-white",
+        "group/booking inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-md font-semibold transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-lava/70 focus-visible:ring-offset-2 focus-visible:ring-offset-volcanic",
+        variant === "primary" && "bg-lava text-white hover:bg-lava/90",
+        variant === "outline" &&
+          "border border-white/30 bg-white/5 text-cream hover:bg-white/10 hover:text-white",
+        variant === "subtle" &&
+          "border border-lava/55 text-cream hover:border-lava hover:bg-lava hover:text-white focus-visible:border-lava",
         size === "md" ? "h-12 px-6 text-base" : "h-11 px-4 text-sm",
         className
       )}
     >
-      <MessageCircle aria-hidden="true" className="size-4" />
+      <MessageCircle
+        aria-hidden="true"
+        className={cn(
+          "size-4",
+          variant === "subtle" &&
+            "text-lava transition-colors group-hover/booking:text-white"
+        )}
+      />
       {children}
     </a>
   );

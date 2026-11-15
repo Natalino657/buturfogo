@@ -57,7 +57,8 @@ export function SectionHeading({
       <h2
         id={titleId}
         className={cn(
-          "mt-4 font-heading text-3xl font-extrabold leading-tight tracking-tight text-balance sm:text-4xl lg:text-5xl",
+          // 30px on phones → 40px on desktop.
+          "mt-4 font-heading text-[clamp(1.875rem,1.35rem+1.5vw,2.5rem)] font-extrabold leading-[1.15] tracking-tight text-balance",
           tone === "dark" ? "text-cream" : "text-volcanic"
         )}
       >
@@ -67,7 +68,8 @@ export function SectionHeading({
       {description && (
         <p
           className={cn(
-            "mt-4 text-base leading-7 text-pretty sm:text-lg sm:leading-8",
+            "mt-4 max-w-xl text-base leading-7 text-pretty sm:text-[17px]",
+            centered && "mx-auto",
             tone === "dark" ? "text-cream/65" : "text-volcanic/70"
           )}
         >

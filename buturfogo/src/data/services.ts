@@ -116,7 +116,6 @@ export const tourGroups = [
   "aroundTheIsland",
 ] as const satisfies readonly TourGroupId[];
 
-/** Confirmed activities. Salinas: 1h30 = 30 €, 2 hours = 40 € (the extra 30 min cost 10 €). */
 export const experiences = [
   {
     id: "salinasVisit",

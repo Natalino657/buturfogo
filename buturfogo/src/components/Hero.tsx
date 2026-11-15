@@ -58,7 +58,8 @@ export function Hero({ dict, whatsappUrl }: HeroProps) {
             </span>
           </div>
 
-          <h1 className="font-heading text-[2.35rem] font-extrabold leading-[1.12] tracking-tight text-cream sm:text-6xl lg:text-7xl">
+          {/* ~37px on phones → 56px on desktop. */}
+          <h1 className="font-heading text-[clamp(2.25rem,1.5rem+3vw,3.5rem)] font-extrabold leading-[1.1] tracking-tight text-cream">
             {dict.titleLead}
             <br />
             <span className="text-lava">{dict.titleHighlight}</span>
