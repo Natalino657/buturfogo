@@ -1,9 +1,8 @@
 "use client";
 
 import { useId, useState, type ReactNode } from "react";
-import { MessageCircle } from "lucide-react";
-
 import { RouteStops } from "@/components/RouteStops";
+import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 import type { BookingOption } from "@/lib/services";
 import { cn } from "@/lib/utils";
 
@@ -25,6 +24,8 @@ type BookingSelectorProps = {
     perVehicle: string;
     /** Accessible name of each route list. */
     route: string;
+    /** Screen-reader note on the button, e.g. "(abre o WhatsApp)". */
+    opensWhatsapp: string;
   };
   className?: string;
 };
@@ -164,8 +165,9 @@ export function BookingSelector({
               "bg-lava text-white outline-none hover:bg-lava/90 focus-visible:ring-2 focus-visible:ring-lava/70 focus-visible:ring-offset-2 focus-visible:ring-offset-volcanic"
             )}
           >
-            <MessageCircle aria-hidden="true" className="size-4" />
+            <WhatsAppIcon className="size-[18px]" />
             {labels.cta}
+            <span className="sr-only"> {labels.opensWhatsapp}</span>
           </a>
         ) : (
           <button
@@ -177,7 +179,7 @@ export function BookingSelector({
               "cursor-not-allowed border border-white/10 text-cream/40"
             )}
           >
-            <MessageCircle aria-hidden="true" className="size-4" />
+            <WhatsAppIcon className="size-[18px]" />
             {labels.cta}
           </button>
         )}

@@ -178,8 +178,9 @@ export const pt = {
     min120: "2 horas",
   } satisfies Record<DurationId, string>,
   pricing: {
-    perVehicle: "Preços por veículo.",
-    perVehicleShort: "por veículo",
+    /** Vehicles are 4-seaters (confirmed by the owner). */
+    perVehicle: "Preços por veículo de 4 lugares.",
+    perVehicleShort: "por veículo de 4 lugares",
   },
   booking: {
     /** Navbar button. */
@@ -190,6 +191,8 @@ export const pt = {
     /** Message for a specific service. Placeholders: {service}, {price}. */
     serviceMessage:
       "Olá BUTURFOGO! Gostaria de reservar: {service} — {price} (preço por veículo).",
+    /** Screen-reader note on every button that opens WhatsApp. */
+    opensWhatsapp: "(abre o WhatsApp)",
     /** Option lists with a single booking button (BookingSelector). */
     selector: {
       chooseTour: "Escolha um passeio",
@@ -260,6 +263,7 @@ export const pt = {
     text: "Tem dúvidas ou pretende organizar um passeio? Fale connosco e ajudamos a planear a sua experiência.",
     whatsappLabel: "WhatsApp",
     whatsappCta: "Falar no WhatsApp",
+    emailLabel: "Email",
   },
 };
 

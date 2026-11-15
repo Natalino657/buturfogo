@@ -157,8 +157,8 @@ export const en: Dictionary = {
     min120: "2 hours",
   },
   pricing: {
-    perVehicle: "Prices per vehicle.",
-    perVehicleShort: "per vehicle",
+    perVehicle: "Prices per 4-seat vehicle.",
+    perVehicleShort: "per 4-seat vehicle",
   },
   booking: {
     cta: "Book now",
@@ -166,6 +166,7 @@ export const en: Dictionary = {
       "Hello BUTURFOGO! I would like more information about your services.",
     serviceMessage:
       "Hello BUTURFOGO! I would like to book: {service} — {price} (price per vehicle).",
+    opensWhatsapp: "(opens WhatsApp)",
     selector: {
       chooseTour: "Choose a tour",
       chooseDuration: "Choose a duration",
@@ -229,5 +230,6 @@ export const en: Dictionary = {
     text: "Have questions or planning a tour? Get in touch and we'll help you plan your experience.",
     whatsappLabel: "WhatsApp",
     whatsappCta: "Chat on WhatsApp",
+    emailLabel: "Email",
   },
 };

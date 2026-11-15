@@ -159,6 +159,7 @@ export function TourChapter({ locale, chapter, number, dict }: TourChapterProps)
           hint: dict.booking.selector.hint,
           perVehicle: dict.pricing.perVehicleShort,
           route: dict.booking.selector.route,
+            opensWhatsapp: dict.booking.opensWhatsapp,
         }}
       />
     </article>

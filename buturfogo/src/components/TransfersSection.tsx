@@ -65,6 +65,7 @@ export function TransfersSection({ locale, dict }: TransfersSectionProps) {
             hint: dict.booking.selector.hint,
             perVehicle: dict.pricing.perVehicleShort,
             route: dict.booking.selector.route,
+            opensWhatsapp: dict.booking.opensWhatsapp,
           }}
         />
       </Container>

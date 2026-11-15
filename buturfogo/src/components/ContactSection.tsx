@@ -1,11 +1,14 @@
-import { ArrowUpRight, MessageCircle } from "lucide-react";
+import { Mail } from "lucide-react";
 
 import { Container } from "@/components/Container";
+import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 import { siteConfig } from "@/config/site";
 import type { Dictionary } from "@/i18n/dictionaries";
 
 type ContactSectionProps = {
   dict: Dictionary["contact"];
+  /** Screen-reader note on the WhatsApp button, e.g. "(abre o WhatsApp)". */
+  opensWhatsapp: string;
   /** WhatsApp link with the general pre-filled message (built on the server). */
   whatsappUrl: string;
 };
@@ -17,10 +20,17 @@ function formatPhone(phone: string): string {
 }
 
 /**
- * Closing call to action. WhatsApp is the only contact listed because it is
- * the only one confirmed in siteConfig (no public phone line or email yet).
+ * Closing call to action: WhatsApp (main contact, with the button) and email.
+ * Only contacts confirmed in siteConfig are listed; there is no public phone
+ * line for calls.
  */
-export function ContactSection({ dict, whatsappUrl }: ContactSectionProps) {
+export function ContactSection({
+  dict,
+  opensWhatsapp,
+  whatsappUrl,
+}: ContactSectionProps) {
+  const rowLabel = "text-xs font-semibold tracking-[0.2em] text-cream/50 uppercase";
+
   return (
     <section
       id="contactos"
@@ -41,30 +51,44 @@ export function ContactSection({ dict, whatsappUrl }: ContactSectionProps) {
         </div>
 
         <div className="lg:col-span-5">
-          <div className="flex flex-col gap-5 border-t border-white/10 pt-6 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-10">
-            <div className="flex items-center gap-3">
-              <MessageCircle
-                aria-hidden="true"
-                strokeWidth={1.75}
-                className="size-5 shrink-0 text-lava"
-              />
-              <div>
-                <p className="text-xs font-semibold tracking-[0.2em] text-cream/50 uppercase">
-                  {dict.whatsappLabel}
-                </p>
-                <p className="mt-0.5 font-heading text-lg font-bold tracking-tight text-cream">
-                  {formatPhone(siteConfig.whatsapp.phone)}
-                </p>
-              </div>
-            </div>
+          <div className="flex flex-col gap-6 border-t border-white/10 pt-6 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-10">
+            <ul className="flex flex-col gap-5">
+              <li className="flex items-center gap-3">
+                <WhatsAppIcon className="size-5 shrink-0 text-lava" />
+                <div className="min-w-0">
+                  <p className={rowLabel}>{dict.whatsappLabel}</p>
+                  <p className="mt-0.5 font-heading text-lg font-bold tracking-tight text-cream">
+                    {formatPhone(siteConfig.whatsapp.phone)}
+                  </p>
+                </div>
+              </li>
+              <li className="flex items-center gap-3">
+                <Mail
+                  aria-hidden="true"
+                  strokeWidth={1.75}
+                  className="size-5 shrink-0 text-lava"
+                />
+                <div className="min-w-0">
+                  <p className={rowLabel}>{dict.emailLabel}</p>
+                  <a
+                    href={`mailto:${siteConfig.email}`}
+                    className="mt-0.5 block font-heading text-lg font-bold tracking-tight break-all text-cream underline decoration-white/20 underline-offset-4 transition-colors outline-none hover:decoration-lava focus-visible:ring-2 focus-visible:ring-lava/70"
+                  >
+                    {siteConfig.email}
+                  </a>
+                </div>
+              </li>
+            </ul>
+
             <a
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-md bg-lava px-6 text-base font-semibold text-white transition-colors outline-none hover:bg-lava/90 focus-visible:ring-2 focus-visible:ring-lava/70 focus-visible:ring-offset-2 focus-visible:ring-offset-volcanic sm:w-fit"
+              className="inline-flex h-12 w-full items-center justify-center gap-2.5 rounded-md bg-lava px-6 text-base font-semibold text-white transition-colors outline-none hover:bg-lava/90 focus-visible:ring-2 focus-visible:ring-lava/70 focus-visible:ring-offset-2 focus-visible:ring-offset-volcanic sm:w-fit"
             >
+              <WhatsAppIcon className="size-5" />
               {dict.whatsappCta}
-              <ArrowUpRight aria-hidden="true" className="size-4" />
+              <span className="sr-only"> {opensWhatsapp}</span>
             </a>
           </div>
         </div>

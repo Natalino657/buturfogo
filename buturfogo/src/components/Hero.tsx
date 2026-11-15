@@ -1,14 +1,15 @@
 import Link from "next/link";
-import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 
 import { HeroSlides, type ResolvedHeroSlide } from "@/components/HeroSlides";
+import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 import { FOGO_HERO_SRC, HERO_SLIDE_SECONDS, heroSlides } from "@/data/hero";
 import { photos } from "@/data/photos";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { interpolate } from "@/lib/format";
 
 type HeroProps = {
-  dict: Pick<Dictionary, "hero" | "photos">;
+  dict: Pick<Dictionary, "hero" | "photos" | "booking">;
   /** Built on the server with the locale's pre-filled message. */
   whatsappUrl: string;
 };
@@ -105,10 +106,11 @@ export function Hero({ dict: fullDict, whatsappUrl }: HeroProps) {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-12 items-center justify-center rounded-md bg-lava px-8 text-base font-semibold text-white transition-colors hover:bg-lava/90 sm:h-14"
+              className="inline-flex h-12 items-center justify-center gap-2.5 rounded-md bg-lava px-8 text-base font-semibold text-white transition-colors hover:bg-lava/90 sm:h-14"
             >
+              <WhatsAppIcon className="size-5" />
               {dict.primaryCta}
-              <ArrowUpRight className="ml-2 size-5" />
+              <span className="sr-only"> {fullDict.booking.opensWhatsapp}</span>
             </a>
 
             <Link

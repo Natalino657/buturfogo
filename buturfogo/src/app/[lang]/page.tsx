@@ -28,6 +28,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
           navigation: dict.navigation,
           languageSwitcher: dict.languageSwitcher,
           bookingCta: dict.booking.cta,
+          opensWhatsapp: dict.booking.opensWhatsapp,
         }}
         whatsappUrl={whatsappUrl}
       />
@@ -38,7 +39,11 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         <ToursByDestination locale={lang} dict={dict} />
         <TransfersSection locale={lang} dict={dict} />
         <AboutSection dict={dict.about} />
-        <ContactSection dict={dict.contact} whatsappUrl={whatsappUrl} />
+        <ContactSection
+          dict={dict.contact}
+          opensWhatsapp={dict.booking.opensWhatsapp}
+          whatsappUrl={whatsappUrl}
+        />
       </main>
       <PhotoCredits dict={dict} />
     </>
