@@ -44,6 +44,8 @@
   --color-lava: #f75a1b;
   --color-sand: #d6a45c;
   --color-cream: #f5f0e7;
+  /* Background of the lighter bands (intro, contact): volcanic with a touch of cream. */
+  --color-volcanic-raised: color-mix(in oklab, #171717 96%, #f5f0e7);
 
   --font-heading: var(--font-montserrat);
   --font-body: var(--font-inter);

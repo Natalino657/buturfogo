@@ -1,4 +1,4 @@
-export type SectionKey = "home" | "explore" | "transfers" | "tours" | "about";
+export type SectionKey = "home" | "tours" | "transfers" | "about" | "contact";
 
 export type NavigationItem = {
   key: SectionKey;
@@ -20,9 +20,9 @@ export const siteConfig = {
   /** Section anchors are shared by every language, so /pt#transfers maps to /en#transfers. */
   navigation: [
     { key: "home", href: "#inicio" },
-    { key: "explore", href: "#explorar" },
-    { key: "transfers", href: "#transfers" },
     { key: "tours", href: "#passeios" },
+    { key: "transfers", href: "#transfers" },
     { key: "about", href: "#sobre" },
+    { key: "contact", href: "#contactos" },
   ] satisfies readonly NavigationItem[],
 } as const;

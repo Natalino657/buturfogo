@@ -1,12 +1,14 @@
 import { notFound } from "next/navigation";
 
-import { DestinationsSection } from "@/components/DestinationsSection";
+import { AboutSection } from "@/components/AboutSection";
+import { ContactSection } from "@/components/ContactSection";
 import { Hero } from "@/components/Hero";
 import { IntroSection } from "@/components/IntroSection";
 import { Navbar } from "@/components/Navbar";
 import { PhotoCredits } from "@/components/PhotoCredits";
-import { ToursSection } from "@/components/ToursSection";
+import { ToursByDestination } from "@/components/ToursByDestination";
 import { TransfersSection } from "@/components/TransfersSection";
+import { WhatWeDoSection } from "@/components/WhatWeDoSection";
 import { hasLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { getWhatsAppUrl } from "@/lib/whatsapp";
@@ -20,32 +22,23 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
 
   return (
     <>
-      <main className="">
-        <Navbar
-          lang={lang}
-          dict={{
-            navigation: dict.navigation,
-            languageSwitcher: dict.languageSwitcher,
-            bookingCta: dict.booking.cta,
-          }}
-          whatsappUrl={whatsappUrl}
-        />
-        <Hero dict={dict.hero} whatsappUrl={whatsappUrl} />
+      <Navbar
+        lang={lang}
+        dict={{
+          navigation: dict.navigation,
+          languageSwitcher: dict.languageSwitcher,
+          bookingCta: dict.booking.cta,
+        }}
+        whatsappUrl={whatsappUrl}
+      />
+      <main>
+        <Hero dict={dict} whatsappUrl={whatsappUrl} />
+        <WhatWeDoSection dict={dict.whatWeDo} />
         <IntroSection dict={dict.intro} />
-        <DestinationsSection dict={dict} />
-
+        <ToursByDestination locale={lang} dict={dict} />
         <TransfersSection locale={lang} dict={dict} />
-
-        <ToursSection locale={lang} dict={dict} />
-
-        <section
-          id="sobre"
-          className="scroll-mt-20 bg-volcanic px-6 py-24 text-center"
-        >
-          <h2 className="font-heading text-3xl font-bold text-cream">
-            {dict.about.title}
-          </h2>
-        </section>
+        <AboutSection dict={dict.about} />
+        <ContactSection dict={dict.contact} whatsappUrl={whatsappUrl} />
       </main>
       <PhotoCredits dict={dict} />
     </>

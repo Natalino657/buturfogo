@@ -20,7 +20,7 @@ export type PlaceId =
 /** Qualifier shown after the last stop, e.g. "Chã das Caldeiras (Pico Grande)". */
 export type RouteVariantId = "picoGrande" | "picoPequeno";
 
-export type TourGroupId = "chaDasCaldeiras" | "aroundTheIsland";
+export type TourGroupId = "chaDasCaldeiras" | "aroundTheIsland" | "otherTours";
 
 export type DurationId = "min90" | "min120";
 
@@ -105,7 +105,8 @@ export const tours = [
   },
   {
     id: "sabuceiro-recupera",
-    group: "aroundTheIsland",
+    // Not tied to a destination until the client confirms where it goes.
+    group: "otherTours",
     stops: ["saoFilipe", "sabuceiroRecupera"],
     price: 50,
   },
@@ -114,6 +115,7 @@ export const tours = [
 export const tourGroups = [
   "chaDasCaldeiras",
   "aroundTheIsland",
+  "otherTours",
 ] as const satisfies readonly TourGroupId[];
 
 export const experiences = [

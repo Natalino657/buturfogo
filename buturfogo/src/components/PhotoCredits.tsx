@@ -1,8 +1,9 @@
+import { Container } from "@/components/Container";
 import { destinations, licenseUrls } from "@/data/destinations";
 import type { Dictionary } from "@/i18n/dictionaries";
 
 type PhotoCreditsProps = {
-  dict: Pick<Dictionary, "destinations" | "photos">;
+  dict: Pick<Dictionary, "photos">;
 };
 
 /** Footer list crediting every destination photo (required by CC BY-SA). */
@@ -13,9 +14,9 @@ export function PhotoCredits({ dict }: PhotoCreditsProps) {
   return (
     <footer
       aria-labelledby="photo-credits-title"
-      className="border-t border-white/10 bg-volcanic px-5 py-12 sm:px-6 sm:py-16 lg:px-10"
+      className="border-t border-white/10 bg-volcanic py-12 sm:py-16"
     >
-      <div className="mx-auto max-w-7xl">
+      <Container>
         <h2
           id="photo-credits-title"
           className="text-[11px] font-semibold tracking-[0.28em] text-sand uppercase sm:text-xs sm:tracking-[0.3em]"
@@ -53,7 +54,7 @@ export function PhotoCredits({ dict }: PhotoCreditsProps) {
             ))
           )}
         </ul>
-      </div>
+      </Container>
     </footer>
   );
 }
