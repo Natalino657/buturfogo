@@ -1,33 +1,72 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 
+import { HeroSlides, type ResolvedHeroSlide } from "@/components/HeroSlides";
+import { destinations, type DestinationPhoto } from "@/data/destinations";
+import { HERO_SLIDE_SECONDS, heroSlides } from "@/data/hero";
 import type { Dictionary } from "@/i18n/dictionaries";
+import { interpolate } from "@/lib/format";
 
 type HeroProps = {
-  dict: Dictionary["hero"];
+  dict: Pick<Dictionary, "hero" | "photos">;
   /** Built on the server with the locale's pre-filled message. */
   whatsappUrl: string;
 };
 
-export function Hero({ dict, whatsappUrl }: HeroProps) {
+/** Resolves the hero slides: destination photos get their alt text and credit. */
+function getSlides(dict: HeroProps["dict"]): ResolvedHeroSlide[] {
+  const photos = destinations.flatMap(
+    (destination): readonly DestinationPhoto[] => destination.photos
+  );
+
+  return heroSlides.flatMap((slide): ResolvedHeroSlide[] => {
+    if (slide.id === "fogo-hero") {
+      return [
+        {
+          id: slide.id,
+          src: slide.src,
+          alt: dict.hero.imageAlt,
+          position: slide.position,
+        },
+      ];
+    }
+    const photo = photos.find((p) => p.id === slide.id);
+    if (!photo) return [];
+    return [
+      {
+        id: photo.id,
+        src: photo.src,
+        alt: dict.photos.alt[photo.id],
+        position: slide.position,
+        credit: {
+          text: interpolate(dict.photos.credit, {
+            author: photo.author,
+            license: photo.license,
+          }),
+          href: photo.sourceUrl,
+        },
+      },
+    ];
+  });
+}
+
+export function Hero({ dict: fullDict, whatsappUrl }: HeroProps) {
+  const dict = fullDict.hero;
+
   return (
     <section
       id="inicio"
-      className="relative flex min-h-[100svh] items-end overflow-hidden bg-volcanic md:items-center"
+      className="relative flex min-h-svh items-end overflow-hidden bg-volcanic md:items-center"
     >
-      <Image
-        src="/images/hero/fogo-hero.webp"
-        alt={dict.imageAlt}
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover object-[72%_42%] sm:object-[68%_40%] md:object-center"
+      <HeroSlides
+        slides={getSlides(fullDict)}
+        interval={HERO_SLIDE_SECONDS}
+        labels={dict.carousel}
       />
 
       <div
-        aria-hidden
-        className="absolute inset-0 bg-gradient-to-t from-volcanic via-volcanic/55 to-volcanic/25 md:bg-none"
+        aria-hidden="true"
+        className="absolute inset-0 bg-linear-to-t from-volcanic via-volcanic/55 to-volcanic/25 md:bg-none"
       />
       <div
         aria-hidden="true"
@@ -49,7 +88,8 @@ export function Hero({ dict, whatsappUrl }: HeroProps) {
         }}
       />
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-28 sm:px-6 md:py-24 lg:px-10">
+      {/* Bottom padding leaves room for the slide controls on phones. */}
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pt-28 pb-28 sm:px-6 sm:pb-24 md:py-24 lg:px-10">
         <div className="max-w-4xl">
           <div className="mb-6 flex items-center gap-3 md:mb-8">
             <span className="h-px w-8 bg-lava sm:w-10" />
@@ -81,7 +121,7 @@ export function Hero({ dict, whatsappUrl }: HeroProps) {
             </a>
 
             <Link
-              href="#transfers"
+              href="#passeios"
               className="inline-flex h-12 items-center justify-center rounded-md border border-white/30 bg-white/5 px-8 text-base text-cream transition-colors hover:bg-white/10 hover:text-white sm:h-14"
             >
               {dict.secondaryCta}
@@ -94,7 +134,7 @@ export function Hero({ dict, whatsappUrl }: HeroProps) {
         <span className="text-[10px] uppercase tracking-[0.3em]">
           {dict.scrollHint}
         </span>
-        <ArrowDown className="size-4 animate-bounce" />
+        <ArrowDown className="size-4 animate-bounce motion-reduce:animate-none" />
       </div>
     </section>
   );

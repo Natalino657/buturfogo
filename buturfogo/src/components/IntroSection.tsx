@@ -1,34 +1,32 @@
-import { SectionHeading } from "@/components/SectionHeading";
+import { Container } from "@/components/Container";
 import type { Dictionary } from "@/i18n/dictionaries";
 
 type IntroSectionProps = {
   dict: Dictionary["intro"];
 };
 
-/** Short presentation of Fogo Island, right after the Hero. */
+/**
+ * Short presentation of Fogo Island, right after the Hero: a slightly lighter
+ * band with hairlines, so it reads apart from the destinations below.
+ */
 export function IntroSection({ dict }: IntroSectionProps) {
   return (
     <section
       aria-labelledby="intro-title"
-      className="bg-volcanic px-5 pt-16 pb-4 sm:px-6 sm:pt-24 lg:px-10"
+      className="border-y border-white/[0.06] bg-volcanic-raised py-20 sm:py-24"
     >
-      <div className="mx-auto max-w-3xl text-center">
-        <SectionHeading
-          titleId="intro-title"
-          eyebrow={dict.eyebrow}
-          title={dict.title}
-          align="center"
-        />
+      <Container className="text-center">
+        <h2
+          id="intro-title"
+          className="font-heading text-[clamp(1.875rem,1.35rem+1.5vw,2.5rem)] leading-[1.15] font-extrabold tracking-tight text-cream"
+        >
+          {dict.title}
+        </h2>
         {/* Lead paragraph: 18px on phones → 22px on desktop. */}
-        <p className="mx-auto mt-6 max-w-2xl font-heading text-[clamp(1.125rem,0.95rem+0.6vw,1.375rem)] leading-relaxed font-medium text-balance text-cream/80 sm:mt-8">
+        <p className="mx-auto mt-6 max-w-2xl font-heading text-[clamp(1.125rem,0.95rem+0.6vw,1.375rem)] leading-relaxed font-medium text-balance text-cream/80">
           {dict.text}
         </p>
-        {/* Lava thread leading into "Explore a ilha", so both read as one chapter. */}
-        <span
-          aria-hidden="true"
-          className="mx-auto mt-8 block h-10 w-px bg-linear-to-b from-lava/70 to-transparent sm:h-12"
-        />
-      </div>
+      </Container>
     </section>
   );
 }

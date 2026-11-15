@@ -20,10 +20,10 @@ export const pt = {
   },
   navigation: {
     home: "Início",
-    explore: "Explorar",
-    transfers: "Transfer",
     tours: "Passeios",
+    transfers: "Transfer",
     about: "Sobre nós",
+    contact: "Contactos",
     openMenu: "Abrir menu",
     closeMenu: "Fechar",
   },
@@ -42,93 +42,103 @@ export const pt = {
     secondaryCta: "Explorar serviços",
     scrollHint: "Descubra mais",
     imageAlt: "Pico do Fogo ao pôr do sol, Ilha do Fogo",
+    /** Background photo controls. */
+    carousel: {
+      label: "Fotografias da Ilha do Fogo",
+      /** Placeholders: {current}, {total}. */
+      goTo: "Mostrar fotografia {current} de {total}",
+      pause: "Pausar fotografias",
+      play: "Retomar fotografias",
+    },
+  },
+  /** "O que fazemos": overview of the services in services.ts (no prices). */
+  whatWeDo: {
+    title: "O que fazemos",
+    items: {
+      airportHotel: {
+        title: "Transfers de aeroporto e hotel",
+        text: "Transporte entre o aeroporto, porto e alojamento.",
+      },
+      island: {
+        title: "Deslocações na ilha",
+        text: "Transporte privado para explorar diferentes localidades e pontos de interesse.",
+      },
+      tours: {
+        title: "Tours e experiências",
+        text: "Percursos para descobrir as paisagens e os lugares mais especiais da Ilha do Fogo.",
+      },
+    },
   },
   intro: {
-    eyebrow: "A ilha",
     title: "Ilha do Fogo",
     text: "Uma ilha moldada pelo vulcão. No centro ergue-se o Pico do Fogo, o ponto mais alto de Cabo Verde, rodeado de paisagens de lava, vinhas e vilas junto ao mar.",
   },
+
+  /* ---------------------------------------------------------------- Tours */
+
+  tours: {
+    title: "Passeios pela ilha",
+    groups: {
+      chaDasCaldeiras: "Chã das Caldeiras",
+      aroundTheIsland: "Pela ilha",
+      otherTours: "Outros passeios",
+    } satisfies Record<TourGroupId, string>,
+    /** Service name in the WhatsApp message. Placeholder: {route}. */
+    bookingLabel: "Passeio {route}",
+  },
+  /** Destination names and descriptions. */
   destinations: {
-    eyebrow: "Destinos",
-    title: "Explore a ilha",
-    description: "Da cratera ao mar, cinco lugares para conhecer o Fogo.",
-    /** Accessible name of a destination's highlights list. */
-    highlightsLabel: "Destaques",
+    chaDasCaldeiras: {
+      name: "Chã das Caldeiras",
+      description:
+        "Uma planície no interior da antiga caldeira, aos pés do Pico do Fogo e cercada pela parede da Bordeira. Entre campos de lava, as aldeias de Portela e Bangaeira cultivam a vinha em solo vulcânico.",
+    },
+    monteVelha: {
+      name: "Monte Velha",
+      description:
+        "Nas encostas da ilha, o Parque Florestal de Monte Velha é uma mancha de floresta onde o nevoeiro passa entre os eucaliptos. Um contraste verde com as paisagens de lava.",
+    },
+    mosteiros: {
+      name: "Mosteiros",
+      description:
+        "No nordeste da ilha, Mosteiros desce das encostas verdes até ao Atlântico. Do miradouro abre-se a vista sobre a costa, e em Igreja o mar enche piscinas naturais entre a rocha vulcânica.",
+    },
+    salinas: {
+      // Location detail (São Jorge) pending confirmation by the client.
+      name: "Salinas",
+      description:
+        "Na costa noroeste, em São Jorge, a Ponta da Salina junta rocha de lava, mar azul e um pequeno porto de pescadores. Um recanto tranquilo junto ao oceano.",
+    },
+    santaCatarina: {
+      name: "Santa Catarina",
+      description:
+        "Santa Catarina ocupa o leste da ilha, entre as encostas do vulcão e o mar. As suas estradas sobem em direção a Chã das Caldeiras e seguem pela costa até Mosteiros.",
+    },
+  } satisfies Record<DestinationId, { name: string; description: string }>,
+  /** Chapters of "Passeios pela ilha" that are not a single destination. */
+  chapters: {
+    aroundTheIsland:
+      "Percursos a partir de São Filipe que ligam Santa Catarina, Mosteiros, Monte Velha e São Lourenço, da costa às encostas do vulcão.",
+    otherTours: "Outros percursos disponíveis a partir de São Filipe.",
+    /** One line per destination, under its photo in "Pela ilha". */
+    cards: {
+      santaCatarina: "O leste da ilha, entre as encostas do vulcão e o mar.",
+      mosteiros:
+        "No nordeste, entre encostas verdes, o miradouro e as piscinas naturais de Igreja.",
+      monteVelha:
+        "Parque florestal nas encostas da ilha, com trilhos entre eucaliptos e nevoeiro.",
+    } satisfies Partial<Record<DestinationId, string>>,
+  },
+  experiences: {
     items: {
-      chaDasCaldeiras: {
-        name: "Chã das Caldeiras",
-        description:
-          "Uma planície no interior da antiga caldeira, aos pés do Pico do Fogo e cercada pela parede da Bordeira. Entre campos de lava, as aldeias de Portela e Bangaeira cultivam a vinha em solo vulcânico.",
-        highlights: ["Pico do Fogo", "Bordeira", "Vinha e vinho do Fogo"],
-      },
-      monteVelha: {
-        name: "Monte Velha",
-        description:
-          "Nas encostas da ilha, o Parque Florestal de Monte Velha é uma mancha de floresta onde o nevoeiro passa entre os eucaliptos. Um contraste verde com as paisagens de lava.",
-        highlights: ["Parque florestal", "Trilhos"],
-      },
-      mosteiros: {
-        name: "Mosteiros",
-        description:
-          "No nordeste da ilha, Mosteiros desce das encostas verdes até ao Atlântico. Do miradouro abre-se a vista sobre a costa, e em Igreja o mar enche piscinas naturais entre a rocha vulcânica.",
-        highlights: [
-          "Miradouro dos Mosteiros",
-          "Piscinas naturais de Igreja",
-          "Cafeeiros nas encostas",
-        ],
-      },
-      salinas: {
-        name: "Salinas de São Jorge",
-        description:
-          "Na costa noroeste, em São Jorge, a Ponta da Salina junta rocha de lava, mar azul e um pequeno porto de pescadores. Um recanto tranquilo junto ao oceano.",
-        highlights: ["Porto de pescadores", "Praia", "Costa de lava"],
-      },
-      santaCatarina: {
-        name: "Santa Catarina",
-        description:
-          "Santa Catarina ocupa o leste da ilha, entre as encostas do vulcão e o mar. As suas estradas sobem em direção a Chã das Caldeiras e seguem pela costa até Mosteiros.",
-        // No highlights until confirmed by the client.
-        highlights: [],
-      },
-    } satisfies Record<
-      DestinationId,
-      { name: string; description: string; highlights: string[] }
-    >,
+      salinasVisit: "Visita às Salinas",
+    } satisfies Record<ExperienceId, string>,
+    /** Service name in the WhatsApp message. Placeholders: {experience}, {duration}. */
+    optionLabel: "{experience} ({duration})",
   },
-  photos: {
-    alt: {
-      "cha-das-caldeiras-bordeira":
-        "Parede da Bordeira e aldeias de Chã das Caldeiras",
-      "cha-das-caldeiras-lava-2014":
-        "Campo de lava de 2014 no interior da cratera, Chã das Caldeiras",
-      "cha-das-caldeiras-vinha":
-        "Vinha nas encostas do vulcão, Chã das Caldeiras",
-      "monte-velha-floresta": "Floresta de Monte Velha com nevoeiro na encosta",
-      "monte-velha-trilho": "Trilho no Parque Florestal de Monte Velha",
-      "mosteiros-vila": "Vista de Mosteiros e da costa",
-      "mosteiros-miradouro":
-        "Vista do Miradouro dos Mosteiros sobre a costa",
-      "mosteiros-piscinas-igreja": "Piscinas naturais de Igreja, Mosteiros",
-      "salinas-porto": "Barcos de pesca na Ponta da Salina",
-      "salinas-praia": "Pequeno porto e praia da Ponta da Salina",
-      "santa-catarina-estrada":
-        "Estrada em direção à caldeira, Santa Catarina",
-    } satisfies Record<PhotoId, string>,
-    /** Credit shown over each photo. Placeholders: {author}, {license}. */
-    credit: "Foto: {author} · {license}",
-    gallery: {
-      /** Placeholder: {place}. */
-      label: "Fotografias de {place}",
-      previous: "Foto anterior",
-      next: "Foto seguinte",
-      /** Placeholders: {current}, {total}. */
-      position: "Foto {current} de {total}",
-    },
-    credits: {
-      title: "Créditos das fotografias",
-      note: "Fotografias do Wikimedia Commons, redimensionadas e convertidas para WebP. Licenças Creative Commons indicadas em cada imagem.",
-    },
-  },
+
+  /* ------------------------------------------------------------ Transfers */
+
   transfers: {
     title: "Transfers",
     description:
@@ -141,24 +151,9 @@ export const pt = {
       "saofilipe-salinas": "Transfer para Salinas",
     } satisfies Record<TransferId, string>,
   },
-  tours: {
-    title: "Passeios e experiências",
-    description: "Explore os destinos mais especiais da Ilha do Fogo.",
-    groups: {
-      chaDasCaldeiras: "Chã das Caldeiras",
-      aroundTheIsland: "Pela ilha",
-    } satisfies Record<TourGroupId, string>,
-    /** Service name in the WhatsApp message. Placeholder: {route}. */
-    bookingLabel: "Passeio {route}",
-  },
-  experiences: {
-    title: "Experiências",
-    items: {
-      salinasVisit: { title: "Visita às Salinas" },
-    } satisfies Record<ExperienceId, { title: string }>,
-    /** Service name in the WhatsApp message. Placeholders: {experience}, {duration}. */
-    optionLabel: "{experience} ({duration})",
-  },
+
+  /* ------------------------------------------------- Shared service texts */
+
   /** Place names used in routes. Proper nouns stay the same in every language. */
   places: {
     airport: "Aeroporto",
@@ -185,23 +180,81 @@ export const pt = {
     perVehicle: "Preços por veículo.",
     perVehicleShort: "por veículo",
   },
-  serviceCard: {
-    /** Accessible name of the route list. */
-    route: "Percurso",
-  },
-  about: {
-    title: "Sobre o BUTURFOGO",
-  },
   booking: {
+    /** Navbar button. */
     cta: "Reservar agora",
+    /** General WhatsApp message (Hero and Navbar buttons). */
     whatsappMessage:
       "Olá BUTURFOGO! Gostaria de mais informações sobre os vossos serviços.",
-    /** Pre-filled message for a specific service. Placeholders: {service}, {price}. */
+    /** Message for a specific service. Placeholders: {service}, {price}. */
     serviceMessage:
       "Olá BUTURFOGO! Gostaria de reservar: {service} — {price} (preço por veículo).",
-    serviceCta: "Reservar",
-    /** Accessible name of a service's booking button. Placeholder: {service}. */
-    serviceCtaLabel: "Reservar {service} pelo WhatsApp",
+    /** Option lists with a single booking button (BookingSelector). */
+    selector: {
+      chooseTour: "Escolha um passeio",
+      chooseDuration: "Escolha a duração",
+      chooseTransfer: "Escolha um transfer",
+      bookTour: "Reservar passeio selecionado",
+      bookVisit: "Reservar visita selecionada",
+      bookTransfer: "Reservar transfer selecionado",
+      hint: "Selecione uma opção para reservar.",
+      /** Accessible name of each route list. */
+      route: "Percurso",
+    },
+  },
+
+  /* --------------------------------------------------------------- Photos */
+
+  photos: {
+    alt: {
+      "cha-das-caldeiras-bordeira":
+        "Parede da Bordeira e aldeias de Chã das Caldeiras",
+      "cha-das-caldeiras-lava-2014":
+        "Campo de lava de 2014 no interior da cratera, Chã das Caldeiras",
+      "cha-das-caldeiras-vinha":
+        "Vinha nas encostas do vulcão, Chã das Caldeiras",
+      "monte-velha-floresta": "Floresta de Monte Velha com nevoeiro na encosta",
+      "mosteiros-vila": "Vista de Mosteiros e da costa",
+      "salinas-porto": "Barcos de pesca na Ponta da Salina",
+      "salinas-praia": "Pequeno porto e praia da Ponta da Salina",
+      "santa-catarina-estrada": "Estrada em direção à caldeira, Santa Catarina",
+    } satisfies Record<PhotoId, string>,
+    /** Credit under each photo. Placeholders: {author}, {license}. */
+    credit: "Foto: {author} · {license}",
+    credits: {
+      title: "Créditos das fotografias",
+      note: "Fotografias do Wikimedia Commons, redimensionadas e convertidas para WebP. Licenças Creative Commons indicadas em cada imagem.",
+    },
+  },
+
+  /** Facts confirmed by the BUTURFOGO owner; do not add names, dates or certifications. */
+  about: {
+    title: "Sobre nós",
+    paragraphs: [
+      "A BUTURFOGO nasce da experiência e da paixão por receber pessoas e mostrar o melhor de Cabo Verde.",
+      "Com mais de 10 anos de experiência na área do turismo, a nossa trajetória começou no transporte de passageiros e evoluiu para serviços de transfers e passeios turísticos.",
+      "Depois de uma experiência de mais de um ano a trabalhar com transfers e tours na Ilha do Sal, trazemos agora esse conhecimento para a Ilha do Fogo, com o objetivo de proporcionar viagens seguras, cómodas e experiências memoráveis.",
+    ],
+    experience: {
+      /** Shown as "10+" (the "+" is added in lava by AboutSection). */
+      years: "10",
+      label: "anos de experiência em turismo",
+    },
+    journey: {
+      /** Accessible name of the steps list. */
+      label: "O nosso percurso",
+      steps: [
+        "Transporte de passageiros",
+        "Transfers e tours na Ilha do Sal",
+        "Ilha do Fogo",
+      ],
+    },
+  },
+  contact: {
+    title: "Vamos descobrir a ilha?",
+    text: "Tem dúvidas ou pretende organizar um passeio? Fale connosco e ajudamos a planear a sua experiência.",
+    whatsappLabel: "WhatsApp",
+    whatsappCta: "Falar no WhatsApp",
   },
 };
 

@@ -1,12 +1,12 @@
 import { CarFront, Plane, Ship, type LucideIcon } from "lucide-react";
 
-import { ServiceList, ServiceRow } from "@/components/ServiceRow";
-import { ServiceSection } from "@/components/ServiceSection";
-import { siteConfig } from "@/config/site";
+import { BookingSelector } from "@/components/BookingSelector";
+import { Container } from "@/components/Container";
+import { SectionHeading } from "@/components/SectionHeading";
 import { transfers, type TransferId } from "@/data/services";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
-import { getRouteLabel, getRouteStops } from "@/lib/services";
+import { getBookingOption, getRouteLabel, getRouteStops } from "@/lib/services";
 
 const icons: Record<TransferId, LucideIcon> = {
   "airport-hotel": Plane,
@@ -21,38 +21,53 @@ type TransfersSectionProps = {
   dict: Dictionary;
 };
 
+/** Transfers, kept apart from the tours: one option list and a single booking button. */
 export function TransfersSection({ locale, dict }: TransfersSectionProps) {
-  const labels = {
-    perVehicle: dict.pricing.perVehicleShort,
-    cta: dict.booking.serviceCta,
-    ctaLabel: dict.booking.serviceCtaLabel,
-    route: dict.serviceCard.route,
-  };
+  const options = transfers.map((transfer) => {
+    const Icon = icons[transfer.id];
+    return {
+      ...getBookingOption(locale, {
+        id: transfer.id,
+        title: dict.transfers.items[transfer.id],
+        stops: getRouteStops(transfer, dict),
+        serviceLabel: getRouteLabel(transfer, dict),
+        price: transfer.price,
+      }),
+      icon: (
+        <Icon
+          aria-hidden="true"
+          strokeWidth={1.75}
+          className="size-4 shrink-0 text-cream/40"
+        />
+      ),
+    };
+  });
 
   return (
-    <ServiceSection
+    <section
       id="transfers"
-      titleId="transfers-title"
-      eyebrow={siteConfig.name}
-      title={dict.transfers.title}
-      description={dict.transfers.description}
-      note={dict.pricing.perVehicle}
-      className="bg-volcanic"
+      aria-labelledby="transfers-title"
+      className="scroll-mt-20 border-t border-white/[0.06] bg-volcanic py-20 sm:py-28"
     >
-      <ServiceList>
-        {transfers.map((transfer) => (
-          <ServiceRow
-            key={transfer.id}
-            locale={locale}
-            icon={icons[transfer.id]}
-            title={dict.transfers.items[transfer.id]}
-            stops={getRouteStops(transfer, dict)}
-            price={transfer.price}
-            serviceLabel={getRouteLabel(transfer, dict)}
-            labels={labels}
-          />
-        ))}
-      </ServiceList>
-    </ServiceSection>
+      <Container>
+        <SectionHeading
+          titleId="transfers-title"
+          title={dict.transfers.title}
+          note={dict.pricing.perVehicle}
+          description={dict.transfers.description}
+        />
+        <BookingSelector
+          className="mt-10"
+          legend={dict.booking.selector.chooseTransfer}
+          options={options}
+          labels={{
+            cta: dict.booking.selector.bookTransfer,
+            hint: dict.booking.selector.hint,
+            perVehicle: dict.pricing.perVehicleShort,
+            route: dict.booking.selector.route,
+          }}
+        />
+      </Container>
+    </section>
   );
 }

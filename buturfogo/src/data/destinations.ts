@@ -4,7 +4,7 @@
  *
  * Every photo comes from Wikimedia Commons under a CC BY-SA licence: the
  * author, licence and source must stay credited wherever the photo is shown
- * (see DestinationPhoto and PhotoCredits). Files were resized and converted to WebP.
+ * (see PhotoGrid and PhotoCredits). Files were resized and converted to WebP.
  */
 
 import type { PlaceId } from "@/data/services";
@@ -35,7 +35,7 @@ export type Photo = {
 
 export type Destination = {
   id: DestinationId;
-  /** First photo is the main one; more than one turns the block into a gallery. */
+  /** Photos shown for the destination, in order (see TourChapter). */
   photos: readonly Photo[];
 };
 
@@ -88,15 +88,6 @@ export const destinations = [
         license: "CC BY-SA 3.0",
         sourceUrl: commons("Fogo-Monte Velha.jpg"),
       },
-      {
-        id: "monte-velha-trilho",
-        src: "/images/destinations/monte-velha-trilho.webp",
-        width: 1800,
-        height: 2400,
-        author: "Ji-Elle",
-        license: "CC BY-SA 3.0",
-        sourceUrl: commons("Fogo-Parc forestier de Monte Velha-Sentier (1).jpg"),
-      },
     ],
   },
   {
@@ -110,28 +101,6 @@ export const destinations = [
         author: "Hlohning",
         license: "CC BY-SA 3.0",
         sourceUrl: commons("Fogo-mosteiros.jpg"),
-      },
-      {
-        id: "mosteiros-miradouro",
-        src: "/images/destinations/mosteiros-miradouro.webp",
-        width: 1107,
-        height: 830,
-        author: "GualdimG",
-        license: "CC BY-SA 4.0",
-        sourceUrl: commons(
-          "Miradouro dos Mosteiros, Ilha do Fogo, Cabo Verde 01.jpg"
-        ),
-      },
-      {
-        id: "mosteiros-piscinas-igreja",
-        src: "/images/destinations/mosteiros-piscinas-igreja.webp",
-        width: 1020,
-        height: 765,
-        author: "GualdimG",
-        license: "CC BY-SA 4.0",
-        sourceUrl: commons(
-          "Piscinas naturais de Igreja, Município de Mosteiros, Ilha do Fogo, Cabo Verde 01.jpg"
-        ),
       },
     ],
   },

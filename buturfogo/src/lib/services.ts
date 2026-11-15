@@ -37,6 +37,41 @@ export function getTourTitle(
   return formatList(getRouteStops(route, dict).slice(1), locale);
 }
 
+/** One choice of a BookingSelector, resolved on the server for the current locale. */
+export type BookingOption = {
+  id: string;
+  title: string;
+  /** Route stops in travel order; empty for options without a route (e.g. a duration). */
+  stops: string[];
+  /** Formatted price, e.g. "80 €" / "€80". */
+  price: string;
+  /** WhatsApp link with the service's personalised message (see getServiceBookingUrl). */
+  href: string;
+};
+
+/**
+ * Builds a BookingOption. `serviceLabel` and `price` go into the WhatsApp
+ * message, so it reads exactly as before.
+ */
+export function getBookingOption(
+  locale: Locale,
+  option: {
+    id: string;
+    title: string;
+    stops?: readonly string[];
+    serviceLabel: string;
+    price: number;
+  }
+): BookingOption {
+  return {
+    id: option.id,
+    title: option.title,
+    stops: [...(option.stops ?? [])],
+    price: formatPrice(option.price, locale),
+    href: getServiceBookingUrl(locale, option.serviceLabel, option.price),
+  };
+}
+
 /** WhatsApp link with a pre-filled booking message for a specific service and price. */
 export function getServiceBookingUrl(
   locale: Locale,
