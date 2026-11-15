@@ -16,9 +16,11 @@ pnpm build
 | O quê | Ficheiro |
 |---|---|
 | Preços, percursos, transfers, experiências | `src/data/services.ts` |
-| Destinos e fotografias (autor, licença, origem) | `src/data/destinations.ts` + `public/images/destinations/` |
+| Fotografias (autor, licença, origem) | `src/data/photos.ts` + `public/images/destinations/` |
+| Fotos de cada destino | `src/data/destinations.ts` |
+| Fotos do Hero | `src/data/hero.ts` |
 | Capítulos de "Passeios pela ilha" (fotos + passeios de cada um) | `src/data/chapters.ts` |
 | Textos (PT / EN) | `src/i18n/dictionaries/pt.ts`, `en.ts` |
 | Número de WhatsApp, menu | `src/config/site.ts` |
 
-As fotografias são do Wikimedia Commons (CC BY-SA): o autor e a licença têm de continuar visíveis por baixo de cada foto e no rodapé.
+As fotografias são do Wikimedia Commons (CC BY e CC BY-SA): o autor e a licença têm de continuar visíveis junto de cada foto e na lista de créditos do rodapé.

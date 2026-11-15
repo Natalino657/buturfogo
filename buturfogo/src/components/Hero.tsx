@@ -2,8 +2,8 @@ import Link from "next/link";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 
 import { HeroSlides, type ResolvedHeroSlide } from "@/components/HeroSlides";
-import { destinations, type DestinationPhoto } from "@/data/destinations";
-import { HERO_SLIDE_SECONDS, heroSlides } from "@/data/hero";
+import { FOGO_HERO_SRC, HERO_SLIDE_SECONDS, heroSlides } from "@/data/hero";
+import { photos } from "@/data/photos";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { interpolate } from "@/lib/format";
 
@@ -13,40 +13,31 @@ type HeroProps = {
   whatsappUrl: string;
 };
 
-/** Resolves the hero slides: destination photos get their alt text and credit. */
+/** Resolves the hero slides: Commons photos get their alt text and credit. */
 function getSlides(dict: HeroProps["dict"]): ResolvedHeroSlide[] {
-  const photos = destinations.flatMap(
-    (destination): readonly DestinationPhoto[] => destination.photos
-  );
-
-  return heroSlides.flatMap((slide): ResolvedHeroSlide[] => {
+  return heroSlides.map((slide): ResolvedHeroSlide => {
     if (slide.id === "fogo-hero") {
-      return [
-        {
-          id: slide.id,
-          src: slide.src,
-          alt: dict.hero.imageAlt,
-          position: slide.position,
-        },
-      ];
-    }
-    const photo = photos.find((p) => p.id === slide.id);
-    if (!photo) return [];
-    return [
-      {
-        id: photo.id,
-        src: photo.src,
-        alt: dict.photos.alt[photo.id],
+      return {
+        id: slide.id,
+        src: FOGO_HERO_SRC,
+        alt: dict.hero.imageAlt,
         position: slide.position,
-        credit: {
-          text: interpolate(dict.photos.credit, {
-            author: photo.author,
-            license: photo.license,
-          }),
-          href: photo.sourceUrl,
-        },
+      };
+    }
+    const photo = photos[slide.id];
+    return {
+      id: slide.id,
+      src: photo.src,
+      alt: dict.photos.alt[slide.id],
+      position: slide.position,
+      credit: {
+        text: interpolate(dict.photos.credit, {
+          author: photo.author,
+          license: photo.license,
+        }),
+        href: photo.sourceUrl,
       },
-    ];
+    };
   });
 }
 

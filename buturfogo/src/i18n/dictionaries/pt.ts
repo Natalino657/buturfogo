@@ -1,4 +1,5 @@
-import type { DestinationId, PhotoId } from "@/data/destinations";
+import type { DestinationId } from "@/data/destinations";
+import type { PhotoId } from "@/data/photos";
 import type {
   DurationId,
   ExperienceId,
@@ -206,24 +207,28 @@ export const pt = {
   /* --------------------------------------------------------------- Photos */
 
   photos: {
+    /** Alt text and caption of each photo (see photos.ts). */
     alt: {
-      "cha-das-caldeiras-bordeira":
-        "Parede da Bordeira e aldeias de Chã das Caldeiras",
-      "cha-das-caldeiras-lava-2014":
-        "Campo de lava de 2014 no interior da cratera, Chã das Caldeiras",
-      "cha-das-caldeiras-vinha":
-        "Vinha nas encostas do vulcão, Chã das Caldeiras",
+      "cha-pico-ceu-azul": "Pico do Fogo sob céu azul",
+      "cha-pico-cone-lava":
+        "Pico do Fogo e cone secundário sobre os campos de lava",
+      "cha-vinhas-socalcos": "Vinhas em socalcos aos pés do Pico do Fogo",
+      "cha-vinha-lava": "Vinha entre a lava, com o Pico do Fogo ao fundo",
+      "cha-caldeira-aerea": "Vista aérea da caldeira e do Pico do Fogo",
+      "mosteiros-costa": "Costa de Mosteiros vista das encostas",
+      "mosteiros-encostas": "Encostas verdes e casas de Mosteiros",
+      "salinas-mar": "Mar azul e rochas de lava na Ponta da Salina",
+      "salinas-praia-calhau":
+        "Praia de calhau e falésias de lava na Ponta da Salina",
+      "santa-catarina-encostas-sul":
+        "Encostas sul do vulcão, com Achada Furna e escoadas de lava",
       "monte-velha-floresta": "Floresta de Monte Velha com nevoeiro na encosta",
-      "mosteiros-vila": "Vista de Mosteiros e da costa",
-      "salinas-porto": "Barcos de pesca na Ponta da Salina",
-      "salinas-praia": "Pequeno porto e praia da Ponta da Salina",
-      "santa-catarina-estrada": "Estrada em direção à caldeira, Santa Catarina",
     } satisfies Record<PhotoId, string>,
     /** Credit under each photo. Placeholders: {author}, {license}. */
     credit: "Foto: {author} · {license}",
     credits: {
       title: "Créditos das fotografias",
-      note: "Fotografias do Wikimedia Commons, redimensionadas e convertidas para WebP. Licenças Creative Commons indicadas em cada imagem.",
+      note: "Fotografias do Wikimedia Commons, redimensionadas e convertidas para WebP. Autores e licenças Creative Commons:",
     },
   },
 
