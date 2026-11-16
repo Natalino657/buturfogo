@@ -5,10 +5,20 @@ export type NavigationItem = {
   href: `#${string}`;
 };
 
+/**
+ * NEXT_PUBLIC_SITE_URL when set; otherwise, on Vercel, the project's production
+ * domain (set by Vercel on every deployment); otherwise the local dev server.
+ */
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000");
+
 export const siteConfig = {
   name: "BUTURFOGO",
   /** Public site URL, used for canonical/hreflang/Open Graph links. */
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  url: siteUrl,
 
   wordmark: { primary: "BUTUR", accent: "FOGO" },
   serviceLabel: "TRANSFERS & TOURS",
