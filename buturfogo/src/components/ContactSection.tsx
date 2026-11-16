@@ -57,9 +57,15 @@ export function ContactSection({
                 <WhatsAppIcon className="size-5 shrink-0 text-lava" />
                 <div className="min-w-0">
                   <p className={rowLabel}>{dict.whatsappLabel}</p>
-                  <p className="mt-0.5 font-heading text-lg font-bold tracking-tight text-cream">
+                  <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-0.5 block font-heading text-lg font-bold tracking-tight text-cream underline decoration-white/20 underline-offset-4 transition-colors outline-none hover:decoration-lava focus-visible:ring-2 focus-visible:ring-lava/70"
+                  >
                     {formatPhone(siteConfig.whatsapp.phone)}
-                  </p>
+                    <span className="sr-only"> {opensWhatsapp}</span>
+                  </a>
                 </div>
               </li>
               <li className="flex items-center gap-3">

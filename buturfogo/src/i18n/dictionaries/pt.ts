@@ -1,3 +1,4 @@
+import type { ChapterId } from "@/data/chapters";
 import type { DestinationId } from "@/data/destinations";
 import type { PhotoId } from "@/data/photos";
 import type {
@@ -8,6 +9,59 @@ import type {
   TourGroupId,
   TransferId,
 } from "@/data/services";
+
+/** Things to do in one place; `name` is set when a chapter covers several places. */
+export type ActivityGroup = {
+  name?: string;
+  items: readonly string[];
+};
+
+/**
+ * Short tags of what visitors can do in each chapter of "Passeios pela ilha". Describes the
+ * places, not what a tour's price includes (pending confirmation by the client).
+ */
+const activities: Record<ChapterId, readonly ActivityGroup[]> = {
+  chaDasCaldeiras: [
+    {
+      items: [
+        "Subida ao Pico do Fogo",
+        "Pico Pequeno",
+        "Lava de 2014–2015",
+        "Vinho de Chã",
+        "Café do Fogo",
+      ],
+    },
+  ],
+  aroundTheIsland: [
+    {
+      name: "Mosteiros",
+      items: ["Piscinas naturais", "Miradouro", "Plantações de café"],
+    },
+    {
+      name: "Santa Catarina",
+      items: ["Estrada do leste", "Escoadas de lava"],
+    },
+    {
+      name: "Monte Velha",
+      items: ["Trilhos na floresta", "Miradouros"],
+    },
+    {
+      name: "São Lourenço",
+      items: ["Igreja", "Pôr do sol sobre a Brava"],
+    },
+  ],
+  salinas: [
+    {
+      items: [
+        "Piscinas naturais",
+        "Arcos de basalto",
+        "Porto de pescadores",
+        "Fim de tarde junto ao mar",
+      ],
+    },
+  ],
+  otherTours: [],
+};
 
 /**
  * Portuguese dictionary. Its shape defines the `Dictionary` type,
@@ -22,7 +76,7 @@ export const pt = {
   navigation: {
     home: "Início",
     tours: "Passeios",
-    transfers: "Transfer",
+    transfers: "Transfers",
     about: "Sobre nós",
     contact: "Contactos",
     openMenu: "Abrir menu",
@@ -79,6 +133,8 @@ export const pt = {
 
   tours: {
     title: "Passeios pela ilha",
+    /** Accessible name of the destination picker. */
+    pickDestination: "Escolha um destino",
     groups: {
       chaDasCaldeiras: "Chã das Caldeiras",
       aroundTheIsland: "Pela ilha",
@@ -130,6 +186,11 @@ export const pt = {
         "Parque florestal nas encostas da ilha, com trilhos entre eucaliptos e nevoeiro.",
     } satisfies Partial<Record<DestinationId, string>>,
   },
+  /** "O que pode fazer", between a chapter's photos and its options. */
+  activities: {
+    title: "O que pode fazer",
+    chapters: activities,
+  },
   experiences: {
     items: {
       salinasVisit: "Visita às Salinas",
@@ -142,6 +203,8 @@ export const pt = {
 
   transfers: {
     title: "Transfers",
+    /** Service name in the WhatsApp message. Placeholder: {route}. */
+    bookingLabel: "Transfer {route}",
     description:
       "Transporte desde o aeroporto e o porto até ao seu hotel em São Filipe, e de São Filipe para Chã das Caldeiras, Mosteiros e Salinas.",
     items: {
@@ -162,7 +225,7 @@ export const pt = {
     hotelSaoFilipe: "Hotel (São Filipe)",
     saoFilipe: "São Filipe",
     chaDasCaldeiras: "Chã das Caldeiras",
-    mosteiros: "Mosteiros(Pai António)",
+    mosteiros: "Mosteiros (Pai António)",
     salinas: "Salinas",
     santaCatarina: "Santa Catarina",
     saoLourenco: "São Lourenço",
@@ -188,9 +251,12 @@ export const pt = {
     /** General WhatsApp message (Hero and Navbar buttons). */
     whatsappMessage:
       "Olá BUTURFOGO! Gostaria de mais informações sobre os vossos serviços.",
-    /** Message for a specific service. Placeholders: {service}, {price}. */
+    /**
+     * Message for a specific service. Placeholders: {service}, {price}.
+     * WhatsApp shows *text* in bold; the last lines are left for the visitor to fill in.
+     */
     serviceMessage:
-      "Olá BUTURFOGO! Gostaria de reservar: {service} — {price} (preço por veículo).",
+      "Olá BUTURFOGO! Gostaria de reservar:\n\n*{service}*\nPreço: {price}\n\nData e hora:\nN.º de pessoas:",
     /** Screen-reader note on every button that opens WhatsApp. */
     opensWhatsapp: "(abre o WhatsApp)",
     /** Option lists with a single booking button (BookingSelector). */
@@ -198,6 +264,8 @@ export const pt = {
       chooseTour: "Escolha um passeio",
       chooseDuration: "Escolha a duração",
       chooseTransfer: "Escolha um transfer",
+      /** Said once per tour list, instead of repeating the route in every row. */
+      fromSaoFilipe: "Partida de São Filipe",
       bookTour: "Reservar passeio selecionado",
       bookVisit: "Reservar visita selecionada",
       bookTransfer: "Reservar transfer selecionado",

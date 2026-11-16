@@ -64,6 +64,7 @@ export const en: Dictionary = {
 
   tours: {
     title: "Tours across the island",
+    pickDestination: "Choose a destination",
     groups: {
       chaDasCaldeiras: "Chã das Caldeiras",
       aroundTheIsland: "Around the island",
@@ -111,6 +112,51 @@ export const en: Dictionary = {
         "A forest park on the island's slopes, with trails among eucalyptus and mist.",
     },
   },
+  activities: {
+    title: "What you can do",
+    chapters: {
+      chaDasCaldeiras: [
+        {
+          items: [
+            "Pico do Fogo climb",
+            "Pico Pequeno",
+            "2014–2015 lava",
+            "Chã wine",
+            "Fogo coffee",
+          ],
+        },
+      ],
+      aroundTheIsland: [
+        {
+          name: "Mosteiros",
+          items: ["Natural pools", "Viewpoint", "Coffee plantations"],
+        },
+        {
+          name: "Santa Catarina",
+          items: ["Eastern road", "Lava flows"],
+        },
+        {
+          name: "Monte Velha",
+          items: ["Forest trails", "Viewpoints"],
+        },
+        {
+          name: "São Lourenço",
+          items: ["Church", "Sunset over Brava"],
+        },
+      ],
+      salinas: [
+        {
+          items: [
+            "Natural pools",
+            "Basalt arches",
+            "Fishing harbour",
+            "Late afternoon by the sea",
+          ],
+        },
+      ],
+      otherTours: [],
+    },
+  },
   experiences: {
     items: {
       salinasVisit: "Salinas visit",
@@ -122,6 +168,7 @@ export const en: Dictionary = {
 
   transfers: {
     title: "Transfers",
+    bookingLabel: "Transfer {route}",
     description:
       "Transport from the airport and the port to your hotel in São Filipe, and from São Filipe to Chã das Caldeiras, Mosteiros and Salinas.",
     items: {
@@ -141,7 +188,7 @@ export const en: Dictionary = {
     hotelSaoFilipe: "Hotel (São Filipe)",
     saoFilipe: "São Filipe",
     chaDasCaldeiras: "Chã das Caldeiras",
-    mosteiros: "Mosteiros(Pai António)",
+    mosteiros: "Mosteiros (Pai António)",
     salinas: "Salinas",
     santaCatarina: "Santa Catarina",
     saoLourenco: "São Lourenço",
@@ -165,12 +212,13 @@ export const en: Dictionary = {
     whatsappMessage:
       "Hello BUTURFOGO! I would like more information about your services.",
     serviceMessage:
-      "Hello BUTURFOGO! I would like to book: {service} — {price} (price per vehicle).",
+      "Hello BUTURFOGO! I would like to book:\n\n*{service}*\nPrice: {price}\n\nDate and time:\nNumber of people:",
     opensWhatsapp: "(opens WhatsApp)",
     selector: {
       chooseTour: "Choose a tour",
       chooseDuration: "Choose a duration",
       chooseTransfer: "Choose a transfer",
+      fromSaoFilipe: "Departing from São Filipe",
       bookTour: "Book selected tour",
       bookVisit: "Book selected visit",
       bookTransfer: "Book selected transfer",

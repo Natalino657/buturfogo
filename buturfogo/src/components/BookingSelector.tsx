@@ -14,6 +14,8 @@ type SelectorOption = BookingOption & {
 type BookingSelectorProps = {
   /** Visible name of the group, e.g. "Escolha um passeio". */
   legend: string;
+  /** Short remark after the legend, e.g. "Partida de São Filipe". */
+  note?: string;
   options: readonly SelectorOption[];
   labels: {
     /** Button text, e.g. "Reservar passeio selecionado". */
@@ -41,6 +43,7 @@ const buttonBase =
  */
 export function BookingSelector({
   legend,
+  note,
   options,
   labels,
   className,
@@ -55,6 +58,11 @@ export function BookingSelector({
       <fieldset>
         <legend className="pb-4 text-xs font-semibold tracking-[0.24em] text-sand uppercase">
           {legend}
+          {note && (
+            <span className="ml-3 font-normal tracking-normal text-cream/50 normal-case">
+              {note}
+            </span>
+          )}
         </legend>
 
         <div className="border-t border-white/[0.07]">
@@ -109,7 +117,10 @@ export function BookingSelector({
                 {/* The label's ::after covers the whole row, so a click anywhere selects it. */}
                 <label
                   htmlFor={inputId}
-                  className="col-start-2 row-start-1 flex min-w-0 cursor-pointer items-center gap-2.5 font-heading text-base leading-snug font-bold text-balance text-cream after:absolute after:inset-0 sm:text-[17px]"
+                  className={cn(
+                    option.stops.length === 0 && "lg:col-span-2",
+                    "col-start-2 row-start-1 flex min-w-0 cursor-pointer items-center gap-2.5 font-heading text-base leading-snug font-bold text-balance text-cream after:absolute after:inset-0 sm:text-[17px]"
+                  )}
                 >
                   {option.icon}
                   {option.title}
