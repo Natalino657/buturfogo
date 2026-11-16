@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 
 import { AboutSection } from "@/components/AboutSection";
 import { ContactSection } from "@/components/ContactSection";
+import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 import { Hero } from "@/components/Hero";
 import { IntroSection } from "@/components/IntroSection";
 import { Navbar } from "@/components/Navbar";
@@ -12,6 +13,9 @@ import { WhatWeDoSection } from "@/components/WhatWeDoSection";
 import { hasLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { getWhatsAppUrl } from "@/lib/whatsapp";
+
+/** Sections with their own WhatsApp button (see FloatingWhatsApp). */
+const floatingHiddenOver = ["inicio", "contactos"] as const;
 
 export default async function Home({ params }: PageProps<"/[lang]">) {
   const { lang } = await params;
@@ -36,8 +40,8 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         <Hero dict={dict} whatsappUrl={whatsappUrl} />
         <WhatWeDoSection dict={dict.whatWeDo} />
         <IntroSection dict={dict.intro} />
-        <ToursByDestination locale={lang} dict={dict} />
         <TransfersSection locale={lang} dict={dict} />
+        <ToursByDestination locale={lang} dict={dict} />
         <AboutSection dict={dict.about} />
         <ContactSection
           dict={dict.contact}
@@ -46,6 +50,11 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         />
       </main>
       <PhotoCredits dict={dict} />
+      <FloatingWhatsApp
+        label={`${dict.booking.cta} ${dict.booking.opensWhatsapp}`}
+        href={whatsappUrl}
+        hideOver={floatingHiddenOver}
+      />
     </>
   );
 }

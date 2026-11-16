@@ -23,8 +23,8 @@ export const siteConfig = {
   /** Section anchors are shared by every language, so /pt#transfers maps to /en#transfers. */
   navigation: [
     { key: "home", href: "#inicio" },
-    { key: "tours", href: "#passeios" },
     { key: "transfers", href: "#transfers" },
+    { key: "tours", href: "#passeios" },
     { key: "about", href: "#sobre" },
     { key: "contact", href: "#contactos" },
   ] satisfies readonly NavigationItem[],

@@ -114,7 +114,7 @@ export function Hero({ dict: fullDict, whatsappUrl }: HeroProps) {
             </a>
 
             <Link
-              href="#passeios"
+              href="#transfers"
               className="inline-flex h-12 items-center justify-center rounded-md border border-white/30 bg-white/5 px-8 text-base text-cream transition-colors hover:bg-white/10 hover:text-white sm:h-14"
             >
               {dict.secondaryCta}

@@ -1,16 +1,20 @@
+import type { ReactNode } from "react";
+import { MapPin, Mountain, Route, Waves, type LucideIcon } from "lucide-react";
+
 import { BookingSelector } from "@/components/BookingSelector";
+import { ChapterActivities } from "@/components/ChapterActivities";
 import { PhotoGrid, type GridPhoto } from "@/components/PhotoGrid";
 import type { Chapter } from "@/data/chapters";
 import { destinations } from "@/data/destinations";
 import { photos } from "@/data/photos";
-import { experiences, tours } from "@/data/services";
+import { experiences, tours, type TourService } from "@/data/services";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { interpolate } from "@/lib/format";
+import { cn } from "@/lib/utils";
 import {
   getBookingOption,
   getRouteLabel,
-  getRouteStops,
   getTourTitle,
   type BookingOption,
 } from "@/lib/services";
@@ -20,6 +24,8 @@ type TourChapterProps = {
   chapter: Chapter;
   /** Chapter number ("01"); omitted for chapters without photos. */
   number?: number;
+  /** Inside the destination picker the tile already shows number and name. */
+  hideTitle?: boolean;
   dict: Dictionary;
 };
 
@@ -65,28 +71,51 @@ function getChapterPhotos(chapter: Chapter, dict: Dictionary): GridPhoto[] {
   });
 }
 
-/** Bookable options of the chapter; same WhatsApp messages as before. */
+/** Same small icon as the transfer rows, in place of a repeated route. */
+function rowIcon(Icon: LucideIcon): ReactNode {
+  return (
+    <Icon
+      aria-hidden="true"
+      strokeWidth={1.75}
+      className="size-4 shrink-0 text-cream/40"
+    />
+  );
+}
+
+/** Volcano for Chã das Caldeiras alone, a route for several stops, a pin otherwise. */
+function getTourIcon(tour: TourService): LucideIcon {
+  if (tour.stops.length > 2) return Route;
+  return tour.group === "chaDasCaldeiras" ? Mountain : MapPin;
+}
+
+type ChapterOption = BookingOption & { icon: ReactNode };
+
+/**
+ * Bookable options of the chapter; same WhatsApp messages as before. Tour rows
+ * show no route: the title already names the stops, and the departure point is
+ * said once above the list.
+ */
 function getChapterOptions(
   chapter: Chapter,
   locale: Locale,
   dict: Dictionary
-): BookingOption[] {
+): ChapterOption[] {
   const { offer } = chapter;
 
   if (offer.kind === "tours") {
     return tours
       .filter((tour) => tour.group === offer.group)
-      .map((tour) =>
-        getBookingOption(locale, {
+      .map((tour) => ({
+        icon: rowIcon(getTourIcon(tour)),
+        ...getBookingOption(locale, {
           id: tour.id,
           title: getTourTitle(tour, dict, locale),
-          stops: getRouteStops(tour, dict),
           serviceLabel: interpolate(dict.tours.bookingLabel, {
             route: getRouteLabel(tour, dict),
           }),
           price: tour.price,
-        })
-      );
+        }),
+      }));
   }
 
   const experience = experiences.find((e) => e.id === offer.id);
@@ -95,7 +124,9 @@ function getChapterOptions(
 
   return experience.options.map((option) => {
     const duration = dict.durations[option.duration];
-    return getBookingOption(locale, {
+    return {
+      icon: rowIcon(Waves),
+      ...getBookingOption(locale, {
       id: option.duration,
       title: `${name} · ${duration}`,
       serviceLabel: interpolate(dict.experiences.optionLabel, {
@@ -103,7 +134,8 @@ function getChapterOptions(
         duration,
       }),
       price: option.price,
-    });
+      }),
+    };
   });
 }
 
@@ -112,17 +144,24 @@ function getChapterOptions(
  * photos, then the options with a single booking button. Everything sits in
  * one left-aligned column so titles, text, photos and prices line up.
  */
-export function TourChapter({ locale, chapter, number, dict }: TourChapterProps) {
+export function TourChapter({
+  locale,
+  chapter,
+  number,
+  hideTitle = false,
+  dict,
+}: TourChapterProps) {
   const { name, description } = getChapterText(chapter, dict);
   const photos = getChapterPhotos(chapter, dict);
   const options = getChapterOptions(chapter, locale, dict);
+  const activities = dict.activities.chapters[chapter.id];
   const isExperience = chapter.offer.kind === "experience";
   const titleId = `chapter-${chapter.id}`;
 
   return (
     <article aria-labelledby={titleId}>
       <header className="max-w-2xl">
-        {number !== undefined && (
+        {number !== undefined && !hideTitle && (
           <p className="font-heading text-xs font-bold tracking-[0.3em] text-lava">
             {String(number).padStart(2, "0")}
           </p>
@@ -130,19 +169,34 @@ export function TourChapter({ locale, chapter, number, dict }: TourChapterProps)
         <h3
           id={titleId}
           className={
-            number !== undefined
+            hideTitle
+              ? "sr-only"
+              : number !== undefined
               ? "mt-2 font-heading text-[clamp(1.75rem,1.4rem+1vw,2.25rem)] leading-[1.15] font-extrabold tracking-tight text-cream"
               : "font-heading text-[clamp(1.375rem,1.2rem+0.6vw,1.75rem)] leading-[1.2] font-extrabold tracking-tight text-cream"
           }
         >
           {name}
         </h3>
-        <p className="mt-3 text-base leading-7 text-pretty text-cream/65 lg:text-[17px]">
+        <p
+          className={cn(
+            !hideTitle && "mt-3",
+            "text-base leading-7 text-pretty text-cream/65 lg:text-[17px]"
+          )}
+        >
           {description}
         </p>
       </header>
 
       {photos.length > 0 && <PhotoGrid className="mt-8" photos={photos} />}
+
+      {activities.length > 0 && (
+        <ChapterActivities
+          className="mt-10"
+          title={dict.activities.title}
+          groups={activities}
+        />
+      )}
 
       <BookingSelector
         className="mt-10"
@@ -151,6 +205,7 @@ export function TourChapter({ locale, chapter, number, dict }: TourChapterProps)
             ? dict.booking.selector.chooseDuration
             : dict.booking.selector.chooseTour
         }
+        note={isExperience ? undefined : dict.booking.selector.fromSaoFilipe}
         options={options}
         labels={{
           cta: isExperience

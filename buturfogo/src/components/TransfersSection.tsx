@@ -6,6 +6,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { transfers, type TransferId } from "@/data/services";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
+import { interpolate } from "@/lib/format";
 import { getBookingOption, getRouteLabel, getRouteStops } from "@/lib/services";
 
 const icons: Record<TransferId, LucideIcon> = {
@@ -30,7 +31,9 @@ export function TransfersSection({ locale, dict }: TransfersSectionProps) {
         id: transfer.id,
         title: dict.transfers.items[transfer.id],
         stops: getRouteStops(transfer, dict),
-        serviceLabel: getRouteLabel(transfer, dict),
+        serviceLabel: interpolate(dict.transfers.bookingLabel, {
+          route: getRouteLabel(transfer, dict),
+        }),
         price: transfer.price,
       }),
       icon: (
