@@ -6,13 +6,13 @@ export type NavigationItem = {
 };
 
 /**
- * NEXT_PUBLIC_SITE_URL when set; otherwise, on Vercel, the project's production
- * domain (set by Vercel on every deployment); otherwise the local dev server.
+ * NEXT_PUBLIC_SITE_URL when set; otherwise the public domain in production
+ * builds (the www host: buturfogo.cv redirects to it) and the dev server locally.
  */
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  (process.env.NODE_ENV === "production"
+    ? "https://www.buturfogo.cv"
     : "http://localhost:3000");
 
 export const siteConfig = {
