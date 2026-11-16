@@ -141,12 +141,12 @@ export const en: Dictionary = {
     hotelSaoFilipe: "Hotel (São Filipe)",
     saoFilipe: "São Filipe",
     chaDasCaldeiras: "Chã das Caldeiras",
-    mosteiros: "Mosteiros",
+    mosteiros: "Mosteiros(Pai António)",
     salinas: "Salinas",
     santaCatarina: "Santa Catarina",
     saoLourenco: "São Lourenço",
     monteVelha: "Monte Velha",
-    sabuceiroRecupera: "Sabuceiro e Recupera nas Hortas",
+    sabuceiroRecupera: "Sambucheiro e Recupera nas Hortas",
   },
   routeVariants: {
     picoGrande: "Pico Grande",
@@ -192,8 +192,7 @@ export const en: Dictionary = {
       "mosteiros-costa": "The Mosteiros coast seen from the slopes",
       "mosteiros-encostas": "Green slopes and houses of Mosteiros",
       "salinas-mar": "Blue sea and lava rocks at Ponta da Salina",
-      "salinas-praia-calhau":
-        "Pebble beach and lava cliffs at Ponta da Salina",
+      "salinas-praia-calhau": "Pebble beach and lava cliffs at Ponta da Salina",
       "santa-catarina-encostas-sul":
         "The volcano's southern slopes, with Achada Furna and lava flows",
       "monte-velha-floresta": "Monte Velha forest with mist on the slope",
