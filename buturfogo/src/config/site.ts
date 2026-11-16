@@ -5,10 +5,20 @@ export type NavigationItem = {
   href: `#${string}`;
 };
 
+/**
+ * NEXT_PUBLIC_SITE_URL when set; otherwise the public domain in production
+ * builds (the www host: buturfogo.cv redirects to it) and the dev server locally.
+ */
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.NODE_ENV === "production"
+    ? "https://www.buturfogo.cv"
+    : "http://localhost:3000");
+
 export const siteConfig = {
   name: "BUTURFOGO",
   /** Public site URL, used for canonical/hreflang/Open Graph links. */
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  url: siteUrl,
 
   wordmark: { primary: "BUTUR", accent: "FOGO" },
   serviceLabel: "TRANSFERS & TOURS",
