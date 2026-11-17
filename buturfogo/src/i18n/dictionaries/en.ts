@@ -245,7 +245,6 @@ export const en: Dictionary = {
         "The volcano's southern slopes, with Achada Furna and lava flows",
       "monte-velha-floresta": "Monte Velha forest with mist on the slope",
     },
-    credit: "Photo: {author} · {license}",
     credits: {
       title: "Photo credits",
       note: "Photos from Wikimedia Commons, resized and converted to WebP. Authors and Creative Commons licences:",

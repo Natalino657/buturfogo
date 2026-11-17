@@ -23,8 +23,6 @@ export type ResolvedHeroSlide = {
   alt: string;
   /** object-position classes. */
   position: string;
-  /** CC BY-SA attribution, when the photo needs one. */
-  credit?: { text: string; href: string };
 };
 
 type HeroSlidesProps = {
@@ -42,8 +40,9 @@ type HeroSlidesProps = {
 };
 
 /**
- * Hero background: photos that cross-fade, with discreet indicators, a
- * pause/play button and the active photo's credit.
+ * Hero background: photos that cross-fade, with discreet indicators and a
+ * pause/play button. Authors and licences are credited in the footer
+ * (PhotoCredits).
  *
  * - Only the first photo loads with the page; the rest are added after
  *   hydration so they never compete with it.
@@ -75,8 +74,6 @@ export function HeroSlides({ slides, interval, labels }: HeroSlidesProps) {
     );
     return () => window.clearTimeout(timer);
   }, [rotating, active, interval, total]);
-
-  const credit = slides[active].credit;
 
   return (
     <>
@@ -119,20 +116,7 @@ export function HeroSlides({ slides, interval, labels }: HeroSlidesProps) {
           onBlur={() => setHeld(false)}
           className="absolute inset-x-0 bottom-3 z-20 sm:bottom-6"
         >
-          {/* Phones: credit on its own line above the controls. From sm: one row,
-              credit on the left, controls on the right. */}
-          <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-end gap-x-3 px-5 sm:flex-nowrap sm:px-6 lg:px-10">
-            {credit && (
-              <a
-                href={credit.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="basis-full text-right text-[11px] text-cream/45 transition-colors outline-none hover:text-cream/80 focus-visible:text-cream focus-visible:underline sm:mr-auto sm:basis-auto sm:text-left"
-              >
-                {credit.text}
-              </a>
-            )}
-
+          <div className="mx-auto flex max-w-7xl items-center justify-end gap-x-3 px-5 sm:px-6 lg:px-10">
             <div className="flex items-center">
               {slides.map((slide, index) => (
                 <button
