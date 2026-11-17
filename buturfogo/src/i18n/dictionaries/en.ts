@@ -5,7 +5,7 @@ export const en: Dictionary = {
   metadata: {
     title: "BUTURFOGO | Transfers & Tours",
     description:
-      "Discover the island. Experience its magic. Explore Fogo Island with BUTURFOGO Transfers & Tours.",
+      "Discover the island. Experience its magic. Transfers and tours to Chã das Caldeiras, Mosteiros and Salinas on Fogo Island, Cabo Verde (Cape Verde).",
   },
   navigation: {
     home: "Home",

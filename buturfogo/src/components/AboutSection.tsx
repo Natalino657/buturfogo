@@ -7,7 +7,7 @@ type AboutSectionProps = {
 };
 
 /**
- * "Sobre nós": the owner's confirmed story. Typographic composition (no team
+ * "Sobre nós": the company's story. Typographic composition (no team
  * photo is available yet): the "10+" years stand out on the left with the
  * journey drawn like a route; the story reads on the right.
  */

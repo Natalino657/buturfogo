@@ -7,6 +7,7 @@ import { Hero } from "@/components/Hero";
 import { IntroSection } from "@/components/IntroSection";
 import { Navbar } from "@/components/Navbar";
 import { PhotoCredits } from "@/components/PhotoCredits";
+import { StructuredData } from "@/components/StructuredData";
 import { ToursByDestination } from "@/components/ToursByDestination";
 import { TransfersSection } from "@/components/TransfersSection";
 import { WhatWeDoSection } from "@/components/WhatWeDoSection";
@@ -26,6 +27,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
 
   return (
     <>
+      <StructuredData locale={lang} dict={dict} />
       <Navbar
         lang={lang}
         dict={{
