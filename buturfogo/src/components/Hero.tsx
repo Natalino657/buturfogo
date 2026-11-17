@@ -6,7 +6,6 @@ import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 import { FOGO_HERO_SRC, HERO_SLIDE_SECONDS, heroSlides } from "@/data/hero";
 import { photos } from "@/data/photos";
 import type { Dictionary } from "@/i18n/dictionaries";
-import { interpolate } from "@/lib/format";
 
 type HeroProps = {
   dict: Pick<Dictionary, "hero" | "photos" | "booking">;
@@ -14,7 +13,7 @@ type HeroProps = {
   whatsappUrl: string;
 };
 
-/** Resolves the hero slides: Commons photos get their alt text and credit. */
+/** Resolves the hero slides: each photo gets its source and alt text. */
 function getSlides(dict: HeroProps["dict"]): ResolvedHeroSlide[] {
   return heroSlides.map((slide): ResolvedHeroSlide => {
     if (slide.id === "fogo-hero") {
@@ -31,13 +30,6 @@ function getSlides(dict: HeroProps["dict"]): ResolvedHeroSlide[] {
       src: photo.src,
       alt: dict.photos.alt[slide.id],
       position: slide.position,
-      credit: {
-        text: interpolate(dict.photos.credit, {
-          author: photo.author,
-          license: photo.license,
-        }),
-        href: photo.sourceUrl,
-      },
     };
   });
 }

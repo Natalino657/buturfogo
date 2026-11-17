@@ -295,8 +295,6 @@ export const pt = {
         "Encostas sul do vulcão, com Achada Furna e escoadas de lava",
       "monte-velha-floresta": "Floresta de Monte Velha com nevoeiro na encosta",
     } satisfies Record<PhotoId, string>,
-    /** Credit under each photo. Placeholders: {author}, {license}. */
-    credit: "Foto: {author} · {license}",
     credits: {
       title: "Créditos das fotografias",
       note: "Fotografias do Wikimedia Commons, redimensionadas e convertidas para WebP. Autores e licenças Creative Commons:",
