@@ -27,7 +27,7 @@ export const siteConfig = {
     phone: "2385993884",
   },
 
-  /** Public contact email, confirmed by the owner. */
+  /** Public contact email. */
   email: "djonnythenmont@gmail.com",
 
   /** Section anchors are shared by every language, so /pt#transfers maps to /en#transfers. */

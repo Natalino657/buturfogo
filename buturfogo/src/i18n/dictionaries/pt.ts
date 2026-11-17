@@ -18,7 +18,7 @@ export type ActivityGroup = {
 
 /**
  * Short tags of what visitors can do in each chapter of "Passeios pela ilha". Describes the
- * places, not what a tour's price includes (pending confirmation by the client).
+ * places, not what a tour's price includes.
  */
 const activities: Record<ChapterId, readonly ActivityGroup[]> = {
   chaDasCaldeiras: [
@@ -70,8 +70,9 @@ const activities: Record<ChapterId, readonly ActivityGroup[]> = {
 export const pt = {
   metadata: {
     title: "BUTURFOGO | Transfers & Tours",
+    /** Search result snippet (~155 characters): the slogan, then services and places. */
     description:
-      "Descubra a ilha. Viva a experiência. Explore a Ilha do Fogo com BUTURFOGO Transfers & Tours.",
+      "Descubra a ilha. Viva a experiência. Transfers e passeios a Chã das Caldeiras, Mosteiros e Salinas, na Ilha do Fogo, Cabo Verde. Reserve por WhatsApp.",
   },
   navigation: {
     home: "Início",
@@ -161,7 +162,6 @@ export const pt = {
         "No nordeste da ilha, Mosteiros desce das encostas verdes até ao Atlântico. Do miradouro abre-se a vista sobre a costa, e em Igreja o mar enche piscinas naturais entre a rocha vulcânica.",
     },
     salinas: {
-      // Location detail (São Jorge) pending confirmation by the client.
       name: "Salinas",
       description:
         "Na costa noroeste, em São Jorge, a Ponta da Salina junta rocha de lava, mar azul e um pequeno porto de pescadores. Um recanto tranquilo junto ao oceano.",
@@ -241,7 +241,7 @@ export const pt = {
     min120: "2 horas",
   } satisfies Record<DurationId, string>,
   pricing: {
-    /** Vehicles are 4-seaters (confirmed by the owner). */
+    /** Vehicles are 4-seaters. */
     perVehicle: "Preços por veículo de 4 lugares.",
     perVehicleShort: "por veículo de 4 lugares",
   },
@@ -303,7 +303,7 @@ export const pt = {
     },
   },
 
-  /** Facts confirmed by the BUTURFOGO owner; do not add names, dates or certifications. */
+  /** Company story; do not add names, dates or certifications. */
   about: {
     title: "Sobre nós",
     paragraphs: [

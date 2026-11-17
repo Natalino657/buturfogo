@@ -1,5 +1,5 @@
 /**
- * BUTURFOGO services and prices, as provided by the client.
+ * BUTURFOGO services and prices.
  * Single source of truth: prices are in EUR and are always PER VEHICLE.
  * Display texts (place names, labels) live in the dictionaries.
  */
@@ -105,7 +105,7 @@ export const tours = [
   },
   {
     id: "sabuceiro-recupera",
-    // Not tied to a destination until the client confirms where it goes.
+    // Not tied to a destination.
     group: "otherTours",
     stops: ["saoFilipe", "sabuceiroRecupera"],
     price: 50,
